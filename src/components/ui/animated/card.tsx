@@ -10,8 +10,6 @@ const Card = ({
   title,
   description,
   src,
-  link,
-  color,
   progress,
   range,
   targetScale,
@@ -34,7 +32,6 @@ const Card = ({
     <div ref={container} className={styles.cardContainer}>
       <motion.div
         style={{
-          backgroundColor: color,
           scale,
           top: `calc(-5vh + ${i * 25}px)`,
         }}
@@ -45,7 +42,7 @@ const Card = ({
           <div className={styles.description}>
             <p>{description}</p>
             <span>
-              <a href={link} target="_blank">
+              <a href="#" target="_blank">
                 See more
               </a>
               <svg

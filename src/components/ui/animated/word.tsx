@@ -1,7 +1,12 @@
 "use client";
 
 import React, { useRef } from "react";
-import { useScroll, motion, MotionValue, useTransform } from "framer-motion";
+import {
+  useScroll,
+  motion,
+  type MotionValue,
+  useTransform,
+} from "framer-motion";
 import { cn } from "@/lib/utils";
 
 export default function Paragraph({

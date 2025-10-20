@@ -1,7 +1,7 @@
 import { AnimatedButton } from "@/components/ui/animated/button";
 import { Marquee } from "@/components/ui/animated/marquee";
 import { NavLink } from "@/components/ui/nav-link";
-import { PixelatedCanvas } from "@/components/ui/pixelated-canvas";
+// import { PixelatedCanvas } from "@/components/ui/pixelated-canvas";
 import { Lavender } from "@/components/client-logos/lavender";
 import { Platinum } from "@/components/client-logos/platinum";
 import { Rainfall } from "@/components/client-logos/rainfall";
@@ -18,6 +18,7 @@ import { Services } from "@/components/sections/services";
 import { FAQs } from "@/components/sections/FAQs";
 import { CTABanner } from "@/components/sections/banner";
 import { Stats } from "@/components/sections/stats";
+import { ParticleImage } from "@/components/ui/animated/particles";
 
 const testimonials = [
   {
@@ -132,7 +133,7 @@ export default function Home() {
 
           {/* HERO IMAGE */}
           <div className="hidden md:block md:col-span-6 lg:col-span-4">
-            <PixelatedCanvas
+            {/*<PixelatedCanvas
               src="/logo.png"
               width={400}
               height={400}
@@ -150,7 +151,8 @@ export default function Home() {
               sampleAverage
               tintStrength={0.2}
               className="!w-full !h-full"
-            />
+            />*/}
+            <ParticleImage src="/logo.png" />
           </div>
         </div>
 

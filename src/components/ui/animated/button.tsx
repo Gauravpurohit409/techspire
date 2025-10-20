@@ -4,13 +4,11 @@ import * as React from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 
-interface AnimatedButtonProps extends React.ComponentProps<typeof Button> {}
-
 export function AnimatedButton({
   children,
   className,
   ...props
-}: AnimatedButtonProps) {
+}: React.ComponentProps<typeof Button>) {
   return (
     <motion.div
       whileHover={{ scale: 0.95 }}

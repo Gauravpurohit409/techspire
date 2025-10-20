@@ -1,11 +1,5 @@
 "use client";
-import {
-  getCSSVariable,
-  labToXyz,
-  parseLab,
-  rgbToHex,
-  xyzToRgb,
-} from "@/lib/utils";
+import { getCSSVariable } from "@/lib/utils";
 import React, { useEffect, useState } from "react";
 
 type PixelatedCanvasProps = {
@@ -246,7 +240,7 @@ export const PixelatedCanvas: React.FC<PixelatedCanvasProps> = ({
             return [parseInt(m[1], 10), parseInt(m[2], 10), parseInt(m[3], 10)];
           return null;
         };
-        tintRGB = parse(colors.tint) as any;
+        tintRGB = parse(colors.tint);
       }
 
       for (let y = 0; y < offscreen.height; y += cellSize) {

@@ -3,7 +3,6 @@
 import { motion, useInView, Variants } from "framer-motion";
 import { useRef } from "react";
 import Image from "next/image";
-import { Badge } from "@/components/ui/badge";
 
 const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 60 },
@@ -114,13 +113,9 @@ const projects: Project[] = [
 export default function Work() {
   const storyRef = useRef(null);
   const valuesRef = useRef(null);
-  const processRef = useRef(null);
-  const teamRef = useRef(null);
 
   const storyInView = useInView(storyRef, { once: true, margin: "-100px" });
   const valuesInView = useInView(valuesRef, { once: true, margin: "-100px" });
-  const processInView = useInView(processRef, { once: true, margin: "-100px" });
-  const teamInView = useInView(teamRef, { once: true, margin: "-100px" });
 
   return (
     <div className="min-h-screen mx-auto container px-8 md:px-0">

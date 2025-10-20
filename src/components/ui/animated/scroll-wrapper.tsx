@@ -18,14 +18,13 @@ export function SmoothScrollProvider({
 
   useEffect(() => {
     const scroller = new Lenis();
-    let rf;
 
     function raf(time: number) {
       scroller.raf(time);
       requestAnimationFrame(raf);
     }
 
-    rf = requestAnimationFrame(raf);
+    const rf = requestAnimationFrame(raf);
     setRaf(rf);
     setLenis(scroller);
 

@@ -82,7 +82,7 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <header className="bg-gradient-to-b from-background to-background/20 backdrop-blur-xs w-full transition-all top-0 left-0 right-0 z-50 pl-8 pr-8 pt-8 pb-4">
+    <header className="bg-gradient-to-b from-background to-background/20 backdrop-blur-xs w-full transition-all fixed top-0 left-0 right-0 z-50 pl-8 pr-8 pt-8 pb-4">
       <div className="container px-0 mx-auto">
         <nav className="flex justify-between items-center w-full">
           {/* Logo */}
@@ -252,7 +252,7 @@ function MobileNavLink({
             </AccordionTrigger>
             <AccordionContent className="pl-4 py-4 flex flex-col gap-2 text-3xl">
               {subLinks?.map((subLink) => (
-                <div onClick={onClick}>
+                <div key={subLink.title} onClick={onClick}>
                   <NavLink
                     title={subLink.title}
                     href={subLink.href}
