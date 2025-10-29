@@ -43,10 +43,9 @@ export function NavLink({
   const shouldAnimate = hovered || autoPlay;
 
   const Wrapper = href ? Link : Slot;
-  const wrapperProps = href ? { href } : {};
 
   return (
-    <Wrapper {...wrapperProps}>
+    <Wrapper href={href || ""}>
       <motion.div
         className={cn(
           "relative cursor-pointer group",
