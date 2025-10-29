@@ -15,8 +15,6 @@ const services = [
 
 const company = ["About Us", "Our Work", "Process", "Careers"];
 
-const resources = ["Blog", "Case Studies", "Resources", "Contact"];
-
 export function Footer() {
   return (
     <footer>
@@ -63,7 +61,7 @@ export function Footer() {
           >
             <h3 className="font-semibold mb-6">Services</h3>
             <ul className="space-y-4">
-              {services.map((service, index) => (
+              {services.map((service) => (
                 <li key={service}>
                   <motion.a
                     href="#"
@@ -88,7 +86,7 @@ export function Footer() {
           >
             <h3 className="font-semibold mb-6">Company</h3>
             <ul className="space-y-4">
-              {company.map((item, index) => (
+              {company.map((item) => (
                 <li key={item}>
                   <motion.a
                     href="#"
@@ -111,7 +109,7 @@ export function Footer() {
             viewport={{ once: true }}
             className="lg:col-span-2"
           >
-            <h3 className="font-semibold mb-6">Let's Work</h3>
+            <h3 className="font-semibold mb-6">{`Let's Work`}</h3>
             <AnimatedButton size="lg" variant="outline" className="group">
               <NavLink title="Start Project" underline={false}>
                 <ArrowUpRight className="w-4 h-4 group-hover:rotate-45 transition-transform duration-300" />

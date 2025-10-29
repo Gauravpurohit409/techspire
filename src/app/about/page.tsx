@@ -233,14 +233,14 @@ const AboutUs = () => {
                   corporate, too disconnected from what actually matters.
                 </p>
                 <p>
-                  We started with a radical idea: what if we built software the
+                  {`We started with a radical idea: what if we built software the
                   way we'd want it built for ourselves? Fast, transparent,
-                  collaborative, and obsessed with quality.
+                  collaborative, and obsessed with quality.`}
                 </p>
                 <p>
-                  Fast forward to today—we're a 50+ strong team working with
+                  {`Fast forward to today—we're a 50+ strong team working with
                   innovative companies worldwide. But our core belief hasn't
-                  changed: great software comes from great partnerships.
+                  changed: great software comes from great partnerships.`}
                 </p>
               </motion.div>
             </div>

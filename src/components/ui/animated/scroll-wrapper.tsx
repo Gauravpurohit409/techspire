@@ -34,7 +34,7 @@ export function SmoothScrollProvider({
         lenisRef.destroy();
       }
     };
-  }, []);
+  }, [lenisRef, rafState]);
 
   return (
     <SmoothScrollContext.Provider value={lenisRef}>

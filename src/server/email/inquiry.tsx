@@ -1,11 +1,9 @@
 import {
-  Button,
   Container,
   Head,
   Heading,
   Hr,
   Html,
-  Img,
   Link,
   Row,
   Text,
@@ -72,16 +70,15 @@ const styles = {
 };
 
 // Helper: logo URL builder
-function getLogoUrl(logo?: string) {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-  return `${baseUrl}${logo || "/logo.png"}`;
-}
+// function getLogoUrl(logo?: string) {
+//   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+//   return `${baseUrl}${logo || "/logo.png"}`;
+// }
 
 //
 // 📩 Company Inquiry Email
 //
 export function CompanyInquiryEmail({
-  logo = "/logo.png",
   name,
   email,
   phone,
@@ -89,7 +86,6 @@ export function CompanyInquiryEmail({
   service,
   message,
 }: {
-  logo?: string;
   name: string;
   email: string;
   phone?: string;
@@ -97,7 +93,6 @@ export function CompanyInquiryEmail({
   service: string;
   message: string;
 }): React.ReactNode {
-  const logoUrl = getLogoUrl(logo);
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
   return (
@@ -169,19 +164,15 @@ CompanyInquiryEmail.PreviewProps = {
 // 📬 User Confirmation Email
 //
 export function UserConfirmationEmail({
-  logo = "/logo.png",
   name,
   service,
   message,
-  website = "https://www.yourcompany.com",
 }: {
-  logo?: string;
   name: string;
   service: string;
   message: string;
-  website?: string;
 }): React.ReactNode {
-  const logoUrl = getLogoUrl(logo);
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
   return (
     <Html lang="en">
@@ -190,7 +181,7 @@ export function UserConfirmationEmail({
       </Head>
       <Container style={styles.container}>
         <Row>
-          <Link href={website}>
+          <Link href={baseUrl}>
             <h2>Techspire</h2>
             {/*<Img src={logoUrl} width={28} height={28} alt="Company Logo" />*/}
           </Link>
@@ -214,7 +205,7 @@ export function UserConfirmationEmail({
             <em>{message}</em>
           </Text>
 
-          <Link href={website} style={styles.button}>
+          <Link href={baseUrl} style={styles.button}>
             Visit Our Website
           </Link>
         </Container>

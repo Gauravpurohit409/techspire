@@ -22,7 +22,6 @@ import {
   AccordionContent,
 } from "../accordian";
 import { usePathname } from "next/navigation";
-import { path } from "framer-motion/m";
 import { cn } from "@/lib/utils";
 
 type Service = {

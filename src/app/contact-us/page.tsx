@@ -122,8 +122,6 @@ export default function ContactUs() {
     }
   };
 
-  console.log({ errors });
-
   return (
     <div className="mx-auto container px-8 md:px-0">
       <div className="space-y-6 text-center pt-32 md:pt-40 pb-16">
@@ -215,7 +213,11 @@ export default function ContactUs() {
                   </SelectTrigger>
                   <SelectContent>
                     {services.map((service) => (
-                      <SelectItem value={service.name} className="capitalize">
+                      <SelectItem
+                        key={service.name}
+                        value={service.name}
+                        className="capitalize"
+                      >
                         {service.name.split("-").join(" ")}
                       </SelectItem>
                     ))}

@@ -4,9 +4,6 @@ import { Project, projects } from "@/data/projects";
 import { MotionValue, useScroll, useTransform, motion } from "framer-motion";
 import Image from "next/image";
 import React from "react";
-import { AnimatedButton } from "../ui/animated/button";
-import { NavLink } from "../ui/nav-link";
-import { MoveRight } from "lucide-react";
 
 export function FeaturedProjects() {
   const container = React.useRef(null);
