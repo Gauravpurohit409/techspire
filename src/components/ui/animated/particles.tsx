@@ -4,13 +4,12 @@ import React from "react";
 type Particle = {
   x: number;
   y: number;
-  density: number;
   originX: number;
   originY: number;
   color: string;
 };
 
-const PARTICLE_DIAMETER = 3;
+const PARTICLE_DIAMETER = 4;
 const REPEL_RADIUS = 60;
 const REPEL_SPEED = 10;
 const RETURN_SPEED = 0.02;
@@ -82,7 +81,6 @@ export function ParticleImage({
           particles.push({
             x: Math.floor(Math.random() * numCols * PARTICLE_DIAMETER),
             y: Math.floor(Math.random() * numRows * PARTICLE_DIAMETER),
-            density: Math.floor(Math.random() * 10) + 2,
             originX: col * PARTICLE_DIAMETER + PARTICLE_DIAMETER / 2,
             originY: row * PARTICLE_DIAMETER + PARTICLE_DIAMETER / 2,
             color: `rgba(${red}, ${green}, ${blue}, ${alpha / 255})`,
@@ -122,10 +120,8 @@ export function ParticleImage({
         if (distanceFromMouse < REPEL_RADIUS) {
           const angle = Math.atan2(distanceFromMouseY, distanceFromMouseX);
           const force = (REPEL_RADIUS - distanceFromMouse) / REPEL_RADIUS;
-          const moveX =
-            Math.cos(angle) * force * REPEL_SPEED * particle.density * 0.6;
-          const moveY =
-            Math.sin(angle) * force * REPEL_SPEED * particle.density * 0.6;
+          const moveX = Math.cos(angle) * force * REPEL_SPEED;
+          const moveY = Math.sin(angle) * force * REPEL_SPEED;
 
           particle.x -= moveX;
           particle.y -= moveY;
