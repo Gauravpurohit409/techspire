@@ -34,7 +34,8 @@ export function SmoothScrollProvider({
         lenisRef.destroy();
       }
     };
-  }, [lenisRef, rafState]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <SmoothScrollContext.Provider value={lenisRef}>
