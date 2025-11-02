@@ -54,7 +54,7 @@ export function CTABanner({
             }
             transition={{ duration: 0.5, delay: 0.6 }}
           >
-            <AnimatedButton variant="secondary" asChild>
+            <AnimatedButton variant="secondary" size="lg" asChild>
               <NavLink
                 title={buttonText}
                 href="/contact-us"

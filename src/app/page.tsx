@@ -97,7 +97,7 @@ export default function Home() {
                 business challenges.
               </p>
             </div>
-            <AnimatedButton variant="soft" asChild>
+            <AnimatedButton variant="soft" size="lg" asChild>
               <Link href="work">
                 <NavLink title="View All Projects" underline={false} />
                 <ArrowUpRight className="w-5 h-5 text-secondary" />

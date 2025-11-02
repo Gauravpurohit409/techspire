@@ -146,7 +146,7 @@ export function Footer() {
             className="lg:col-span-2"
           >
             <h3 className="font-semibold mb-6">{`Let's Work`}</h3>
-            <AnimatedButton variant="soft" asChild>
+            <AnimatedButton variant="soft" size="lg" asChild>
               <Link href="contact-us">
                 <NavLink title="Start Project" underline={false} />
                 <ArrowUpRight className="w-5 h-5 text-secondary" />
