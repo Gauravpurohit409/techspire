@@ -23,10 +23,7 @@ export const metadata: Metadata = {
   creator: "Techspire Hub",
   publisher: "Techspire Hub",
 
-  metadataBase: new URL("https://www.techspirehub.com"),
-  alternates: {
-    canonical: "https://www.techspirehub.com/projects",
-  },
+  metadataBase: new URL("https://techspirehub.com"),
 
   category: "Technology & Digital Services",
 

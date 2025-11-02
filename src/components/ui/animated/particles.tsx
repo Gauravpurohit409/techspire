@@ -1,4 +1,5 @@
 "use client";
+import { useMediaQuery } from "@/hooks/use-media-query";
 import React from "react";
 
 type Particle = {
@@ -13,16 +14,9 @@ const PARTICLE_DIAMETER = 4;
 const REPEL_RADIUS = 60;
 const REPEL_SPEED = 10;
 const RETURN_SPEED = 0.02;
+const DELAY = 60000;
 
-export function ParticleImage({
-  src,
-  width = 400,
-  height = 400,
-}: {
-  src: string;
-  width?: number;
-  height?: number;
-}) {
+export function ParticleImage() {
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
   const particlesRef = React.useRef<Array<Particle>>([]);
   const mouseRef = React.useRef<{ x: number; y: number }>({
@@ -30,54 +24,48 @@ export function ParticleImage({
     y: Infinity,
   });
   const rafRef = React.useRef<number | null>(null);
+  const interactionTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
+  const isInteractingRef = React.useRef(false);
+  const rippleIntervalRef = React.useRef<NodeJS.Timeout | null>(null);
+
+  const isLarge = useMediaQuery("(min-width: 1024px)");
+  const isMedium = useMediaQuery("(min-width: 768px)");
+  const width = isLarge ? 400 : isMedium ? 300 : 200;
+  const height = width;
 
   React.useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
+    if (!ctx) return;
 
     const img = new Image();
     img.crossOrigin = "anonymous";
-    img.src = src;
+    img.src = "/logo.png";
 
     const compute = () => {
-      if (!canvas) return;
+      canvas.width = width;
+      canvas.height = height;
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
 
-      const displayWidth = width ?? img.naturalWidth;
-      const displayHeight = height ?? img.naturalHeight;
+      ctx.clearRect(0, 0, width, height);
+      ctx.drawImage(img, 0, 0, width, height);
 
-      canvas.width = Math.max(1, Math.floor(displayWidth));
-      canvas.height = Math.max(1, Math.floor(displayHeight));
-      canvas.style.width = `${displayWidth}px`;
-      canvas.style.height = `${displayHeight}px`;
+      const imageData = ctx.getImageData(0, 0, width, height).data;
 
-      if (!ctx) return;
-      ctx.resetTransform();
-      ctx.clearRect(0, 0, displayWidth, displayHeight);
-      ctx.drawImage(img, 0, 0, displayWidth, displayHeight);
-
-      const imageData = ctx.getImageData(
-        0,
-        0,
-        displayWidth,
-        displayHeight,
-      ).data;
-
-      const numRows = Math.round(displayHeight / PARTICLE_DIAMETER);
-      const numCols = Math.round(displayWidth / PARTICLE_DIAMETER);
+      const numRows = Math.round(height / PARTICLE_DIAMETER);
+      const numCols = Math.round(width / PARTICLE_DIAMETER);
 
       const particles: Array<Particle> = [];
       for (let row = 0; row < numRows; row++) {
         for (let col = 0; col < numCols; col++) {
           const pixelIndex =
-            (row * PARTICLE_DIAMETER * displayWidth + col * PARTICLE_DIAMETER) *
-            4;
-
+            (row * PARTICLE_DIAMETER * width + col * PARTICLE_DIAMETER) * 4;
           const red = imageData[pixelIndex];
           const green = imageData[pixelIndex + 1];
           const blue = imageData[pixelIndex + 2];
           const alpha = imageData[pixelIndex + 3];
-
           particles.push({
             x: Math.floor(Math.random() * numCols * PARTICLE_DIAMETER),
             y: Math.floor(Math.random() * numRows * PARTICLE_DIAMETER),
@@ -87,23 +75,18 @@ export function ParticleImage({
           });
         }
       }
-
       particlesRef.current = particles;
     };
 
     const drawParticles = () => {
-      if (!ctx) return;
       updateParticles();
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      const particles = particlesRef.current;
-      particles.forEach((particle) => {
+      ctx.clearRect(0, 0, width, height);
+      particlesRef.current.forEach((p) => {
         ctx.beginPath();
-        ctx.arc(particle.x, particle.y, PARTICLE_DIAMETER / 2, 0, 2 * Math.PI);
-        ctx.fillStyle = particle.color;
+        ctx.arc(p.x, p.y, PARTICLE_DIAMETER / 2, 0, 2 * Math.PI);
+        ctx.fillStyle = p.color;
         ctx.fill();
       });
-
       rafRef.current = requestAnimationFrame(drawParticles);
     };
 
@@ -111,72 +94,92 @@ export function ParticleImage({
       const particles = particlesRef.current;
       const mouse = mouseRef.current;
       particles.forEach((particle) => {
-        const distanceFromMouseX = mouse.x - particle.x;
-        const distanceFromMouseY = mouse.y - particle.y;
-        const distanceFromMouse = Math.sqrt(
-          distanceFromMouseX ** 2 + distanceFromMouseY ** 2,
-        );
+        const dx = mouse.x - particle.x;
+        const dy = mouse.y - particle.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
 
-        if (distanceFromMouse < REPEL_RADIUS) {
-          const angle = Math.atan2(distanceFromMouseY, distanceFromMouseX);
-          const force = (REPEL_RADIUS - distanceFromMouse) / REPEL_RADIUS;
-          const moveX = Math.cos(angle) * force * REPEL_SPEED;
-          const moveY = Math.sin(angle) * force * REPEL_SPEED;
-
-          particle.x -= moveX;
-          particle.y -= moveY;
-        } else if (
-          particle.x !== particle.originX ||
-          particle.y !== particle.originY
-        ) {
-          const distanceFromOriginX = particle.originX - particle.x;
-          const distanceFromOriginY = particle.originY - particle.y;
-          const distanceFromOrigin = Math.sqrt(
-            distanceFromOriginX ** 2 + distanceFromOriginY ** 2,
-          );
-
-          const angle = Math.atan2(distanceFromOriginY, distanceFromOriginX);
-          const moveX = Math.cos(angle) * distanceFromOrigin * RETURN_SPEED;
-          const moveY = Math.sin(angle) * distanceFromOrigin * RETURN_SPEED;
-
-          particle.x += moveX;
-          particle.y += moveY;
+        if (dist < REPEL_RADIUS) {
+          const angle = Math.atan2(dy, dx);
+          const force = (REPEL_RADIUS - dist) / REPEL_RADIUS;
+          particle.x -= Math.cos(angle) * force * REPEL_SPEED;
+          particle.y -= Math.sin(angle) * force * REPEL_SPEED;
+        } else {
+          const ox = particle.originX - particle.x;
+          const oy = particle.originY - particle.y;
+          particle.x += ox * RETURN_SPEED;
+          particle.y += oy * RETURN_SPEED;
         }
       });
     };
 
-    img.onload = () => {
-      compute();
-      drawParticles();
+    const triggerRipple = () => {
+      if (isInteractingRef.current) return;
+      const particles = particlesRef.current;
+      particles.forEach((p) => {
+        p.x += (Math.random() - 0.5) * 100;
+        p.y += (Math.random() - 0.5) * 100;
+      });
     };
 
-    if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    rafRef.current = requestAnimationFrame(drawParticles);
+    const startRippleInterval = () => {
+      rippleIntervalRef.current = setInterval(triggerRipple, DELAY);
+    };
+
+    const stopRippleInterval = () => {
+      if (rippleIntervalRef.current) clearInterval(rippleIntervalRef.current);
+      rippleIntervalRef.current = null;
+    };
 
     const onMouseMove = (event: MouseEvent) => {
-      mouseRef.current.x = event.offsetX;
-      mouseRef.current.y = event.offsetY;
+      const rect = canvas.getBoundingClientRect();
+      mouseRef.current.x = event.clientX - rect.left;
+      mouseRef.current.y = event.clientY - rect.top;
+
+      // Pause ripple while interacting
+      isInteractingRef.current = true;
+      stopRippleInterval();
+
+      // Restart ripple 5s after inactivity
+      if (interactionTimeoutRef.current)
+        clearTimeout(interactionTimeoutRef.current);
+      interactionTimeoutRef.current = setTimeout(() => {
+        isInteractingRef.current = false;
+        startRippleInterval();
+      }, DELAY);
     };
 
     const onMouseLeave = () => {
       mouseRef.current.x = Infinity;
       mouseRef.current.y = Infinity;
+      isInteractingRef.current = false;
+      startRippleInterval();
+    };
+
+    img.onload = () => {
+      compute();
+      drawParticles();
+      startRippleInterval();
     };
 
     canvas.addEventListener("mousemove", onMouseMove);
     canvas.addEventListener("mouseleave", onMouseLeave);
 
     return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      stopRippleInterval();
+      if (interactionTimeoutRef.current)
+        clearTimeout(interactionTimeoutRef.current);
       canvas.removeEventListener("mousemove", onMouseMove);
       canvas.removeEventListener("mouseleave", onMouseLeave);
     };
-  }, [width, height, src]);
+  }, [width, height]);
 
   return (
     <canvas
       ref={canvasRef}
       role="img"
-      aria-label="Pixelated rendering of source image"
+      aria-label="Particle rendering of logo"
+      className="block mx-auto"
     />
   );
 }

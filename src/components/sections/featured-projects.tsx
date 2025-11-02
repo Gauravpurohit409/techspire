@@ -4,6 +4,7 @@ import { Project, projects } from "@/data/projects";
 import { MotionValue, useScroll, useTransform, motion } from "framer-motion";
 import Image from "next/image";
 import React from "react";
+import { page } from "../ui/styles/page";
 
 export function FeaturedProjects() {
   const container = React.useRef(null);
@@ -39,6 +40,7 @@ function Card({
   i,
   title,
   description,
+  result,
   src,
   progress,
   range,
@@ -61,27 +63,21 @@ function Card({
   return (
     <div
       ref={container}
-      className="h-screen flex justify-center items-center sticky top-0"
+      className="h-[90vh] md:h-[60vh] flex justify-center items-center sticky top-16"
     >
       <motion.div
         style={{
           scale,
           top: `calc(-5vh + ${i * 25}px)`,
         }}
-        className="flex flex-col relative aspect-square md:aspect-auto md:h-[500px] md:w-[1000px] w-full rounded-lg p-6 origin-top bg-muted border"
+        className="flex flex-col relative aspect-auto md:aspect-auto md:h-[350px] md:w-[768px] lg:h-[400px] lg:w-[900px] w-full rounded-lg p-6 origin-top bg-muted border"
       >
-        <div className="flex flex-col-reverse md:flex-row gap-10 h-full mt-[50px]">
-          <div className="md:w-[40%] h-full flex flex-col md:justify-between space-y-4">
-            <h2 className="font-medium">{title}</h2>
-            <div className="space-y-4">
-              <p className="text-lg leading-relaxed text-muted-foreground">
-                {description}
-              </p>
-              {/*<AnimatedButton variant="ghost">
-                <NavLink title="See More" underline={false}>
-                  <MoveRight className="w-4 h-4" />
-                </NavLink>
-              </AnimatedButton>*/}
+        <div className="flex flex-col-reverse md:flex-row gap-10 h-full mt-[20px]">
+          <div className="md:w-[40%] h-full flex flex-col space-y-6">
+            <h2 className="font-medium text-xl">{title}</h2>
+            <div className="space-y-3 text-base">
+              <p className={page.description}>{description}</p>
+              <p className="font-medium">{`"${result}"`}</p>
             </div>
           </div>
 

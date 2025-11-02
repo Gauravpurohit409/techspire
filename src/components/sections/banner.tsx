@@ -6,6 +6,9 @@ import { useRef } from "react";
 import { MaskText } from "../ui/animated/mask-text";
 import { AnimatedButton } from "../ui/animated/button";
 import { NavLink } from "../ui/nav-link";
+import { BackgroundBeams } from "../ui/animated/background-beams";
+import { cn } from "@/lib/utils";
+import { page } from "../ui/styles/page";
 
 interface CTABannerProps {
   title: string;
@@ -29,18 +32,18 @@ export function CTABanner({
       transition={{ duration: 0.8, ease: "easeOut" }}
       className="w-full"
     >
-      <div className="relative overflow-hidden rounded-xl border border-border p-12 sm:p-16 lg:p-20">
+      <div className="relative overflow-hidden rounded-xl border border-primary/5 p-8 sm:p-16 lg:p-20 ">
         {/* Subtle glow effect */}
-        <div className="absolute inset-0 bg-gradient-to-br from-accent/10 to-transparent opacity-50" />
+        <div className="absolute inset-0 bg-gradient-to-br from-primary to-primary/10 opacity-50" />
 
-        <div className="relative z-10 flex flex-col items-center justify-center text-center space-y-8">
+        <div className="relative z-10 flex flex-col items-center justify-center text-center space-y-8 max-w-5xl mx-auto">
           <MaskText
-            className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-balance"
+            className={cn(page.heading, "text-balance")}
             phrases={[title]}
           />
 
           <MaskText
-            className="leading-6 md:leading-7 text-base md:text-lg text-balance tracking-wide text-muted-foreground"
+            className={cn(page.content, "text-balance")}
             phrases={[description]}
           />
 
@@ -51,7 +54,7 @@ export function CTABanner({
             }
             transition={{ duration: 0.5, delay: 0.6 }}
           >
-            <AnimatedButton size="lg" asChild>
+            <AnimatedButton variant="secondary" asChild>
               <NavLink
                 title={buttonText}
                 href="/contact-us"
@@ -60,6 +63,7 @@ export function CTABanner({
             </AnimatedButton>
           </motion.div>
         </div>
+        <BackgroundBeams />
       </div>
     </motion.div>
   );

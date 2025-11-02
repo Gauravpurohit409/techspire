@@ -1,9 +1,11 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
+import { page } from "../styles/page";
 
 type Testimonial = {
   quote: string;
@@ -105,13 +107,13 @@ export const AnimatedTestimonials = ({
               exit={{ y: -20, opacity: 0 }}
               transition={{ duration: 0.4, ease: "easeInOut" }}
             >
-              <h3 className="text-2xl font-bold">
+              <h3 className="text-xl sm:text-2xl font-bold">
                 {testimonials[active].name}
               </h3>
               <p className="text-sm text-muted-foreground">
                 {testimonials[active].designation}
               </p>
-              <motion.p className="mt-8 text-lg text-muted-foreground leading-relaxed">
+              <motion.p className={cn(page.content, "mt-8")}>
                 {testimonials[active].quote.split(" ").map((word, index) => (
                   <motion.span
                     key={index}

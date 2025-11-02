@@ -1,203 +1,30 @@
 "use client";
 
-import { motion, useInView, Variants } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import {
-  Sparkles,
-  Target,
-  Users,
-  Zap,
-  Code,
-  Rocket,
-  Heart,
-} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
 import { Stats } from "@/components/sections/stats";
 import { CTABanner } from "@/components/sections/banner";
-
-const fadeInUp: Variants = {
-  hidden: { opacity: 0, y: 60 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  },
-};
-
-const fadeInLeft: Variants = {
-  hidden: { opacity: 0, x: -60 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      duration: 0.8,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  },
-};
-
-const fadeInRight: Variants = {
-  hidden: { opacity: 0, x: 60 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      duration: 0.8,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  },
-};
-
-const staggerContainer: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.1,
-    },
-  },
-};
-
-interface TeamMember {
-  name: string;
-  src: string;
-  designation: string;
-  linkedin: string;
-  color: string;
-}
-
-const teamMembers: TeamMember[] = [
-  {
-    name: "Sarah Johnson",
-    designation: "Chief Executive Officer",
-    src: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=3560&auto=format&fit=crop&ixlib=rb-4.0.3",
-    linkedin: "https://linkedin.com/in/sarahjohnson",
-    color: "from-cyan-500 to-blue-500",
-  },
-  {
-    name: "Michael Chen",
-    designation: "Chief Technology Officer",
-    src: "https://images.unsplash.com/photo-1636041293178-808a6762ab39?q=80&w=3464&auto=format&fit=crop&ixlib=rb-4.0.3",
-    linkedin: "https://linkedin.com/in/michaelchen",
-    color: "from-orange-500 to-red-500",
-  },
-  {
-    name: "Emily Rodriguez",
-    designation: "Head of Design",
-    src: "https://images.unsplash.com/photo-1624561172888-ac93c696e10c?q=80&w=2592&auto=format&fit=crop&ixlib=rb-4.0.3",
-    linkedin: "https://linkedin.com/in/emilyrodriguez",
-    color: "from-green-500 to-emerald-500",
-  },
-  {
-    name: "David Kumar",
-    designation: "Lead Developer",
-    src: "https://images.unsplash.com/photo-1623582854588-d60de57fa33f?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3",
-    linkedin: "https://linkedin.com/in/davidkumar",
-    color: "from-pink-500 to-rose-500",
-  },
-  {
-    name: "Lisa Wang",
-    designation: "Project Manager",
-    src: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3",
-    linkedin: "https://linkedin.com/in/lisawang",
-    color: "from-amber-500 to-yellow-500",
-  },
-  {
-    name: "James Patterson",
-    designation: "Marketing Director",
-    src: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=3560&auto=format&fit=crop&ixlib=rb-4.0.3",
-    linkedin: "https://linkedin.com/in/jamespatterson",
-    color: "from-violet-500 to-purple-500",
-  },
-];
-
-const values = [
-  {
-    icon: Sparkles,
-    title: "Innovation First",
-    description:
-      "We stay ahead of the curve, embracing cutting-edge technologies to deliver solutions that set new standards.",
-  },
-  {
-    icon: Target,
-    title: "Results Driven",
-    description:
-      "Your success metrics are our KPIs. We're obsessed with delivering measurable impact and ROI.",
-  },
-  {
-    icon: Heart,
-    title: "Client Partnership",
-    description:
-      "We don't just work for you—we work with you. Your vision becomes our mission.",
-  },
-  {
-    icon: Zap,
-    title: "Agile Excellence",
-    description:
-      "Fast iterations, continuous improvement, and adaptive strategies keep us nimble and effective.",
-  },
-];
-
-const processSteps = [
-  {
-    number: "01",
-    title: "Discovery",
-    description:
-      "Deep dive into your business, goals, and challenges to understand what success looks like.",
-    icon: Users,
-  },
-  {
-    number: "02",
-    title: "Strategy",
-    description:
-      "Craft a tailored roadmap with clear milestones, timelines, and deliverables.",
-    icon: Target,
-  },
-  {
-    number: "03",
-    title: "Design",
-    description:
-      "Create intuitive, beautiful interfaces that users love and convert.",
-    icon: Sparkles,
-  },
-  {
-    number: "04",
-    title: "Development",
-    description:
-      "Build robust, scalable solutions using industry best practices and modern tech.",
-    icon: Code,
-  },
-  {
-    number: "05",
-    title: "Testing",
-    description:
-      "Rigorous QA ensures bug-free, secure, and performant applications.",
-    icon: Zap,
-  },
-  {
-    number: "06",
-    title: "Launch",
-    description:
-      "Seamless deployment and post-launch support to ensure smooth operations.",
-    icon: Rocket,
-  },
-];
+import { cn } from "@/lib/utils";
+import { page } from "@/components/ui/styles/page";
+import { Process } from "@/components/sections/process";
+import {
+  fadeInLeft,
+  fadeInRight,
+  fadeInUp,
+  staggerContainer,
+} from "@/lib/variants";
+import { processSteps, teamMembers, values } from "@/data/about";
 
 export function AboutUs() {
   const storyRef = useRef(null);
   const valuesRef = useRef(null);
-  const processRef = useRef(null);
   const teamRef = useRef(null);
 
   const storyInView = useInView(storyRef, { once: true, margin: "-100px" });
   const valuesInView = useInView(valuesRef, { once: true, margin: "-100px" });
-  const processInView = useInView(processRef, { once: true, margin: "-100px" });
   const teamInView = useInView(teamRef, { once: true, margin: "-100px" });
 
   return (
@@ -209,15 +36,16 @@ export function AboutUs() {
             initial="hidden"
             animate={storyInView ? "visible" : "hidden"}
             variants={staggerContainer}
+            className="grid grid-cols-1 gap-16 md:grid-cols-2"
           >
-            <div className="grid md:grid-cols-2 gap-16">
+            <div className="md:flex-1 grid gap-6">
               <motion.div variants={fadeInLeft}>
-                <span className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
+                <span className={cn(page.subTitle, "text-muted-foreground")}>
                   Our Journey
                 </span>
-                <h2 className="text-5xl sm:text-6xl font-bold mt-4 mb-8 leading-tight">
-                  Born from
-                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary/100 to-primary/60">
+                <h2 className={cn(page.heading, "mt-4 mb-8")}>
+                  Born from{" "}
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-secondary/100 to-primary/60">
                     Passion
                   </span>
                 </h2>
@@ -225,7 +53,7 @@ export function AboutUs() {
 
               <motion.div
                 variants={fadeInRight}
-                className="space-y-6 text-lg leading-relaxed"
+                className={cn(page.content, "space-y-6")}
               >
                 <p>
                   In 2015, three developers in a garage decided conventional
@@ -244,6 +72,13 @@ export function AboutUs() {
                 </p>
               </motion.div>
             </div>
+            <Image
+              src="/images/about.jpg"
+              alt="team discussion"
+              width="600"
+              height="600"
+              className="md:flex-1 h-full rounded-lg"
+            />
           </motion.div>
         </div>
       </section>
@@ -260,14 +95,10 @@ export function AboutUs() {
             variants={staggerContainer}
           >
             <motion.div variants={fadeInUp} className="text-center mb-20">
-              <span className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
-                What Drives Us
-              </span>
+              <span className={page.subTitle}>What Drives Us</span>
               <div className="space-y-4 text-center">
-                <h2 className="text-3xl sm:text-4xl font-bold">
-                  Our Core Values
-                </h2>
-                <p className="max-w-2xl mx-auto leading-6 tracking-wide text-muted-foreground">
+                <h2 className={page.title}>Our Core Values</h2>
+                <p className={cn(page.description, "max-w-2xl mx-auto")}>
                   These principles guide every decision we make and every line
                   of code we write.
                 </p>
@@ -282,14 +113,12 @@ export function AboutUs() {
                   className="group relative p-6 bg-foreground/5 border border-border rounded-lg hover:bg-foregound/10 hover:border-foreground/20 transition-all duration-500"
                 >
                   <div className="flex items-start gap-6">
-                    <div className="flex-shrink-0 w-14 h-14 bg-gradient-to-br from-primary/20 to-primary/30 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                      <value.icon className="text-primary w-5 h-5" />
+                    <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-primary/20 to-secondary/30 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <value.icon className="w-5 h-5" />
                     </div>
                     <div>
-                      <h3 className="text-2xl font-bold mb-3">{value.title}</h3>
-                      <p className="text-muted-foreground leading-relaxed">
-                        {value.description}
-                      </p>
+                      <h3 className="text-lg font-bold mb-3">{value.title}</h3>
+                      <p className={page.description}>{value.description}</p>
                     </div>
                   </div>
                 </motion.div>
@@ -300,52 +129,10 @@ export function AboutUs() {
       </section>
 
       {/* Our Process */}
-      <section ref={processRef} className="py-32">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial="hidden"
-            animate={processInView ? "visible" : "hidden"}
-            variants={staggerContainer}
-          >
-            <motion.div variants={fadeInUp} className="text-center mb-20">
-              <span className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
-                How We Work
-              </span>
-              <div className="space-y-4 text-center">
-                <h2 className="text-3xl sm:text-4xl font-bold">Our Process</h2>
-                <p className="max-w-2xl mx-auto leading-6 tracking-wide text-muted-foreground">
-                  A proven methodology that turns ambitious ideas into
-                  successful products.
-                </p>
-              </div>
-            </motion.div>
-
-            <div className="flex flex-col items-center">
-              <div className="space-y-6">
-                {processSteps.map((step, index) => (
-                  <motion.div
-                    key={index}
-                    variants={fadeInUp}
-                    className="group relative"
-                  >
-                    <div className="flex gap-6">
-                      <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-primary/20 to-primary/30 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                        {step.number}
-                      </div>
-                      <div>
-                        <h3 className="text-2xl font-bold">{step.title}</h3>
-                        <p className="text-muted-foreground leading-relaxed">
-                          {step.description}
-                        </p>
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      <Process
+        description="A proven methodology that turns ambitious ideas into successful products."
+        steps={processSteps}
+      />
 
       {/* Meet the Team */}
       <section ref={teamRef} className="py-32">
@@ -356,14 +143,10 @@ export function AboutUs() {
             variants={staggerContainer}
           >
             <motion.div variants={fadeInUp} className="text-center mb-20">
-              <span className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
-                The Creators
-              </span>
+              <span className={page.subTitle}>The Creators</span>
               <div className="space-y-4 text-center">
-                <h2 className="text-3xl sm:text-4xl font-bold">
-                  Meet the Team
-                </h2>
-                <p className="max-w-2xl mx-auto leading-6 tracking-wide text-muted-foreground">
+                <h2 className={page.title}>Meet the Team</h2>
+                <p className={cn(page.description, "max-w-2xl mx-auto")}>
                   Talented individuals united by a passion for building
                   exceptional digital products.
                 </p>
@@ -392,9 +175,9 @@ export function AboutUs() {
                     </motion.div>
                     <div className="absolute bottom-4 left-4 right-4 p-4 bg-foreground/90 text-background rounded-lg">
                       <div className="flex justify-between items-center">
-                        <h3 className="text-xl font-bold">{member.name}</h3>
+                        <h3 className="text-lg font-bold">{member.name}</h3>
                         <Button
-                          variant="outline"
+                          variant="secondary"
                           size="icon"
                           className="size-6 border-none"
                           asChild

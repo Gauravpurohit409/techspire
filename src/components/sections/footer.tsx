@@ -2,18 +2,31 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, ArrowUpRight } from "lucide-react";
 import { AnimatedButton } from "../ui/animated/button";
 import { NavLink } from "../ui/nav-link";
+import Link from "next/link";
+import { contactDetails } from "@/data";
+import { cn } from "@/lib/utils";
+import { page } from "../ui/styles/page";
+import { services } from "@/data/services";
 
-const services = [
-  "Web Development",
-  "App Development",
-  "UI Design",
-  "Digital Marketing",
+const company = [
+  {
+    title: "About Us",
+    href: "/about",
+  },
+  {
+    title: "Our Work",
+    href: "/work",
+  },
+  {
+    title: "Reach Out",
+    href: "/contact-us",
+  },
 ];
 
-const company = ["About Us", "Our Work", "Process", "Careers"];
+const MotionLink = motion(Link);
 
 export function Footer() {
   return (
@@ -21,33 +34,56 @@ export function Footer() {
       {/*<div className="w-full h-px bg-gradient-to-r from-transparent via-muted to-transparent" />*/}
       <div className="w-full h-px bg-gradient-to-r from-transparent via-muted-foreground/30 to-transparent" />
       <div className="max-w-7xl mx-auto px-6 py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-10 gap-12 lg:gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-16">
           {/* Brand Section */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="lg:col-span-4"
+            className="lg:col-span-5"
           >
-            <h2 className="text-2xl font-bold mb-6">Techspire Hub</h2>
-            <p className="text-muted-foreground text-lg leading-relaxed mb-8 max-w-sm">
+            <Link href="/" className="text-xl font-bold mb-6">
+              Techspire Hub
+            </Link>
+            <p className={cn(page.content, "mb-8 max-w-sm")}>
               We craft digital experiences that drive growth and transform
               businesses through innovative software solutions.
             </p>
             <div className="space-y-3">
-              <div className="flex items-center space-x-3 text-muted-foreground">
+              <MotionLink
+                href={`mailto:${contactDetails.mail}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors duration-300"
+                whileHover={{ x: 4 }}
+                transition={{ duration: 0.2 }}
+              >
                 <Mail className="w-5 h-5" />
-                <span>hello@softwareco.com</span>
-              </div>
-              <div className="flex items-center space-x-3 text-muted-foreground">
+                <span>{contactDetails.mail}</span>
+              </MotionLink>
+              <MotionLink
+                href={`tel:${contactDetails.phone}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors duration-300"
+                whileHover={{ x: 4 }}
+                transition={{ duration: 0.2 }}
+              >
                 <Phone className="w-5 h-5" />
-                <span>+1 (555) 123-4567</span>
-              </div>
-              <div className="flex items-center space-x-3 text-muted-foreground">
+                <span>{contactDetails.phone}</span>
+              </MotionLink>
+              <MotionLink
+                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(contactDetails.location)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors duration-300"
+                whileHover={{ x: 4 }}
+                transition={{ duration: 0.2 }}
+              >
                 <MapPin className="w-5 h-5" />
-                <span>San Francisco, CA</span>
-              </div>
+                <span>{contactDetails.location}</span>
+              </MotionLink>
             </div>
           </motion.div>
 
@@ -57,20 +93,20 @@ export function Footer() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
             viewport={{ once: true }}
-            className="lg:col-span-2"
+            className="lg:col-span-3"
           >
             <h3 className="font-semibold mb-6">Services</h3>
             <ul className="space-y-4">
               {services.map((service) => (
-                <li key={service}>
-                  <motion.a
-                    href="#"
-                    className="text-muted-foreground hover:text-foreground transition-colors duration-300 block"
+                <li key={service.name}>
+                  <MotionLink
+                    href={`/services/${service.name}`}
+                    className="text-muted-foreground hover:text-foreground transition-colors duration-300 block white-"
                     whileHover={{ x: 4 }}
                     transition={{ duration: 0.2 }}
                   >
-                    {service}
-                  </motion.a>
+                    {service.subtitle}
+                  </MotionLink>
                 </li>
               ))}
             </ul>
@@ -87,15 +123,15 @@ export function Footer() {
             <h3 className="font-semibold mb-6">Company</h3>
             <ul className="space-y-4">
               {company.map((item) => (
-                <li key={item}>
-                  <motion.a
-                    href="#"
+                <li key={item.title}>
+                  <MotionLink
+                    href={item.href}
                     className="text-muted-foreground hover:text-foreground transition-colors duration-300 block"
                     whileHover={{ x: 4 }}
                     transition={{ duration: 0.2 }}
                   >
-                    {item}
-                  </motion.a>
+                    {item.title}
+                  </MotionLink>
                 </li>
               ))}
             </ul>
@@ -110,10 +146,11 @@ export function Footer() {
             className="lg:col-span-2"
           >
             <h3 className="font-semibold mb-6">{`Let's Work`}</h3>
-            <AnimatedButton size="lg" variant="outline" className="group">
-              <NavLink title="Start Project" underline={false}>
-                <ArrowUpRight className="w-4 h-4 group-hover:rotate-45 transition-transform duration-300" />
-              </NavLink>
+            <AnimatedButton variant="soft" asChild>
+              <Link href="contact-us">
+                <NavLink title="Start Project" underline={false} />
+                <ArrowUpRight className="w-5 h-5 text-secondary" />
+              </Link>
             </AnimatedButton>
           </motion.div>
         </div>
@@ -129,25 +166,25 @@ export function Footer() {
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-8">
               <p className="text-muted-foreground text-sm">
-                © 2024 SoftwareCo. All rights reserved.
+                © 2025 Techspire hub. All rights reserved.
               </p>
               <div className="flex space-x-6">
-                <motion.a
-                  href="#"
+                <MotionLink
+                  href="/privacy-policy"
                   className="text-muted-foreground hover:text-foreground text-sm transition-colors duration-300"
                   whileHover={{ y: -2 }}
                   transition={{ duration: 0.2 }}
                 >
                   Privacy Policy
-                </motion.a>
-                <motion.a
-                  href="#"
+                </MotionLink>
+                <MotionLink
+                  href="/terms-of-use"
                   className="text-muted-foreground hover:text-foreground text-sm transition-colors duration-300"
                   whileHover={{ y: -2 }}
                   transition={{ duration: 0.2 }}
                 >
                   Terms of Service
-                </motion.a>
+                </MotionLink>
               </div>
             </div>
 

@@ -20,49 +20,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
-const faqs = [
-  {
-    id: "faq-1",
-    question: "What industries do you specialize in?",
-    answer:
-      "We’ve worked across a wide range of industries including e-commerce, SaaS, healthcare, finance, and education. Our flexible approach ensures that we can tailor digital solutions to meet the specific needs of your business and audience.",
-  },
-  {
-    id: "faq-2",
-    question: "How long does it take to develop a website or app?",
-    answer:
-      "Project timelines vary depending on scope and complexity. On average, a standard website may take 4–6 weeks, while custom app development can range from 8–16 weeks. We always provide clear project milestones and regular updates.",
-  },
-  {
-    id: "faq-3",
-    question: "Do you provide ongoing support and maintenance?",
-    answer:
-      "Yes. Beyond launch, we offer comprehensive support packages that include updates, performance monitoring, and feature enhancements. Our goal is to ensure your digital product continues to evolve with your business.",
-  },
-  {
-    id: "faq-4",
-    question: "What makes your digital marketing different?",
-    answer:
-      "Our campaigns are data-driven and personalized, focusing on delivering measurable results. From SEO and PPC to content and social media, we craft strategies that drive engagement and growth, not just traffic.",
-  },
-  {
-    id: "faq-5",
-    question: "Can you integrate with our existing systems?",
-    answer:
-      "Absolutely. We specialize in integrating new solutions with existing CRMs, ERPs, and third-party APIs. Our team ensures a seamless transition with minimal disruption to your business operations.",
-  },
-  {
-    id: "faq-6",
-    question: "How do we get started?",
-    answer:
-      "Simply reach out through our contact form or schedule a consultation. We’ll discuss your goals, challenges, and requirements, then outline a tailored roadmap to get your project moving.",
-  },
-];
+import { contactDetails, faqs } from "@/data";
+import Link from "next/link";
+import { page } from "@/components/ui/styles/page";
 
 const chatOptions = [
   {
-    src: "#",
+    src: `mailto:${contactDetails.mail}`,
     title: "Shoot us an email",
     icon: Mail,
   },
@@ -85,22 +49,21 @@ const ContactSchema = z.object({
 
 type ContactSchema = z.infer<typeof ContactSchema>;
 
+const MotionLink = motion(Link);
+
 export function ContactUs() {
   const {
     control,
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<ContactSchema>({
     resolver: zodResolver(ContactSchema),
   });
 
   const onSubmit = async (data: ContactSchema) => {
     try {
-      console.log("inside Submit");
-      // setLoading(true);
-      console.log({ data });
       const res = await fetch("/api/send", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -108,35 +71,32 @@ export function ContactUs() {
       });
 
       const result = await res.json();
-      // setLoading(false);
 
       if (result.success) {
-        // setSuccess(true);
         reset();
       } else {
         alert("Something went wrong, please try again.");
       }
     } catch (err) {
-      // setLoading(false);
       console.error(err);
     }
   };
 
   return (
-    <div className="mx-auto container px-8 md:px-0">
-      <div className="space-y-6 text-center pt-32 md:pt-40 pb-16">
+    <div className="mx-auto container px-8 md:px-0 pt-32 md:pt-40 space-y-20 md:space-y-40">
+      <div className="space-y-6 text-center">
         <MaskText
           className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight text-balance"
           phrases={["Contact our team"]}
         />
         <MaskText
-          className="leading-6 md:leading-7 text-base md:text-lg text-balance tracking-wide text-muted-foreground"
+          className={cn(page.content, "text-balance")}
           phrases={[
             "We’d love to hear from you. Whether you’re looking to build a new SaaS product, scale your marketing efforts, or craft a custom digital solution, our team is here to help. Share your vision with us and let’s bring it to life together.",
           ]}
         />
       </div>
-      <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-16 lg:gap-32 py-32">
+      <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-16 lg:gap-32">
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="lg:col-span-3 space-y-8"
@@ -240,7 +200,7 @@ export function ContactUs() {
               {...register("message", { required: true })}
             />
           </LabelInputContainer>
-          <AnimatedButton type="submit" size="lg">
+          <AnimatedButton type="submit" size="lg" disabled={isSubmitting}>
             <NavLink title="Send Message" />
           </AnimatedButton>
         </form>
@@ -248,56 +208,62 @@ export function ContactUs() {
           <div className="space-y-4">
             <div>
               <h2 className="text-xl font-semibold">Chat with us</h2>
-              <p className="leading-6 text-balance tracking-wide text-muted-foreground">
+              <p className={page.description}>
                 Speak to our friendly team via chat
               </p>
             </div>
             {chatOptions.map((opt) => (
-              <motion.a
+              <MotionLink
                 key={opt.title}
                 href={opt.src}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors duration-300 underline underline-offset-4"
                 whileHover={{ x: 4 }}
                 transition={{ duration: 0.2 }}
               >
                 <opt.icon className="w-4 h-4" />
                 {opt.title}
-              </motion.a>
+              </MotionLink>
             ))}
           </div>
           <div className="space-y-4">
             <div>
               <h2 className="text-xl font-semibold">Call us</h2>
-              <p className="leading-6 text-balance tracking-wide text-muted-foreground">
+              <p className={page.description}>
                 Call our team Mon-Fri from 8AM to 5PM
               </p>
             </div>
-            <motion.a
-              href="#"
+            <MotionLink
+              href={`tel:${contactDetails.phone}`}
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors duration-300 underline underline-offset-4"
               whileHover={{ x: 4 }}
               transition={{ duration: 0.2 }}
             >
               <PhoneCall className="w-4 h-4" />
-              +91 9848032919
-            </motion.a>
+              {contactDetails.phone}
+            </MotionLink>
           </div>
           <div className="space-y-4">
             <div>
               <h2 className="text-xl font-semibold">Visit us</h2>
-              <p className="leading-6 text-balance tracking-wide text-muted-foreground">
+              <p className={page.description}>
                 Chat to us in person at our Bengaluru office
               </p>
             </div>
-            <motion.a
-              href="#"
+            <MotionLink
+              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(contactDetails.location)}`}
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors duration-300 underline underline-offset-4"
               whileHover={{ x: 4 }}
               transition={{ duration: 0.2 }}
             >
               <MapPin className="w-4 h-4" />
-              100 Smith street, Bengaluru
-            </motion.a>
+              {contactDetails.location}
+            </MotionLink>
           </div>
         </div>
       </div>

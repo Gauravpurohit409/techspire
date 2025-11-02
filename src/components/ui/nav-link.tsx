@@ -31,17 +31,22 @@ export function NavLink({
   const isActive = href === pathname;
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    const triggerAutoPlay = () => {
       setAutoPlay(true);
-      const endTimer = setTimeout(() => setAutoPlay(false), 800);
-      return () => clearTimeout(endTimer);
-    }, 3000);
+      setTimeout(() => setAutoPlay(false), 800);
+    };
 
-    return () => clearTimeout(timer);
+    const initialTimer = setTimeout(triggerAutoPlay, 3000);
+
+    const interval = setInterval(triggerAutoPlay, 60000);
+
+    return () => {
+      clearTimeout(initialTimer);
+      clearInterval(interval);
+    };
   }, []);
 
   const shouldAnimate = hovered || autoPlay;
-
   const Wrapper = href ? Link : Slot;
 
   return (
@@ -58,10 +63,8 @@ export function NavLink({
         onHoverEnd={() => setHovered(false)}
       >
         <div className="relative overflow-hidden w-max">
-          {/* Text animation */}
           {!isActive ? (
             <>
-              {/* Base text */}
               <motion.span className="inline-block">
                 {letters.map((letter, index) => (
                   <motion.span
@@ -83,7 +86,6 @@ export function NavLink({
                 ))}
               </motion.span>
 
-              {/* Reveal text */}
               <motion.span className="absolute top-0 left-0">
                 {letters.map((letter, index) => (
                   <motion.span
@@ -106,12 +108,14 @@ export function NavLink({
               </motion.span>
             </>
           ) : (
-            <span className="inline-block">{title}</span>
+            <span className={cn("inline-block", isActive && "text-secondary")}>
+              {title}
+            </span>
           )}
 
           {/* Underline animation */}
           {isActive ? (
-            <div className="absolute left-0 bottom-0 h-px w-full bg-foreground" />
+            <div className="absolute left-0 bottom-0 h-px w-full bg-secondary" />
           ) : underline ? (
             <AnimatePresence mode="wait">
               {(hovered || autoPlay) && (

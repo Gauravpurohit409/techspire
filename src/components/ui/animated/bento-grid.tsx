@@ -1,6 +1,8 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import { page } from "../styles/page";
+import { LucideIcon } from "lucide-react";
 
 export const BentoGrid = ({
   className,
@@ -26,13 +28,13 @@ export const BentoGridItem = ({
   title,
   description,
   header,
-  icon,
+  Icon,
 }: {
   className?: string;
   title?: string | React.ReactNode;
   description?: string | React.ReactNode;
   header?: React.ReactNode;
-  icon?: React.ReactNode;
+  Icon: LucideIcon;
 }) => {
   return (
     <div
@@ -44,13 +46,11 @@ export const BentoGridItem = ({
     >
       <div className="px-4 space-y-4">
         <div className="flex items-center gap-2">
-          {icon}
-          <div className="text-xl font-semibold">{title}</div>
+          <Icon className="w-5 h-5 text-muted-foreground" />
+          <div className="text-base md:text-xl font-semibold">{title}</div>
         </div>
 
-        <p className="font-normal text-muted-foreground tracking-wide leading-7">
-          {description}
-        </p>
+        <p className={page.description}>{description}</p>
       </div>
       {header}
     </div>

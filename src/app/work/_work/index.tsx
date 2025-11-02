@@ -1,114 +1,17 @@
 "use client";
 
-import { motion, useInView, Variants } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import Image from "next/image";
-
-const fadeInUp: Variants = {
-  hidden: { opacity: 0, y: 60 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  },
-};
-
-const fadeInLeft: Variants = {
-  hidden: { opacity: 0, x: -60 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      duration: 0.8,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  },
-};
-
-const fadeInRight: Variants = {
-  hidden: { opacity: 0, x: 60 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      duration: 0.8,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  },
-};
-
-const staggerContainer: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.1,
-    },
-  },
-};
-
-interface Project {
-  id: number;
-  title: string;
-  description: string;
-  image: string;
-  tags: string[];
-}
-
-const projects: Project[] = [
-  {
-    id: 1,
-    title: "StreamFlow",
-    description: "A SaaS platform empowering creators worldwide",
-    image:
-      "https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=800",
-    tags: ["Web App", "UI/UX", "React", "Next.js"],
-  },
-  {
-    id: 2,
-    title: "FinanceHub",
-    description: "Modern banking experience for the digital age",
-    image:
-      "https://images.pexels.com/photos/6801648/pexels-photo-6801648.jpeg?auto=compress&cs=tinysrgb&w=800",
-    tags: ["Fintech", "Mobile", "Security", "React Native"],
-  },
-  {
-    id: 3,
-    title: "EcoTrack",
-    description: "Sustainability metrics dashboard for enterprises",
-    image:
-      "https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=800",
-    tags: ["Dashboard", "Analytics", "Vue.js", "D3.js"],
-  },
-  {
-    id: 4,
-    title: "HealthConnect",
-    description: "Telemedicine platform connecting patients and doctors",
-    image:
-      "https://images.pexels.com/photos/4386466/pexels-photo-4386466.jpeg?auto=compress&cs=tinysrgb&w=800",
-    tags: ["Healthcare", "WebRTC", "React", "Node.js"],
-  },
-  {
-    id: 5,
-    title: "Shopify Plus",
-    description: "E-commerce ecosystem with AI-powered recommendations",
-    image:
-      "https://images.pexels.com/photos/3944405/pexels-photo-3944405.jpeg?auto=compress&cs=tinysrgb&w=800",
-    tags: ["E-commerce", "AI/ML", "Next.js", "Stripe"],
-  },
-  {
-    id: 6,
-    title: "EduVerse",
-    description: "Interactive learning platform for modern education",
-    image:
-      "https://images.pexels.com/photos/4145190/pexels-photo-4145190.jpeg?auto=compress&cs=tinysrgb&w=800",
-    tags: ["EdTech", "Video", "React", "WebGL"],
-  },
-];
+import { projects } from "@/data/projects";
+import { cn } from "@/lib/utils";
+import { page } from "@/components/ui/styles/page";
+import {
+  fadeInLeft,
+  fadeInRight,
+  fadeInUp,
+  staggerContainer,
+} from "@/lib/variants";
 
 export function Work() {
   const storyRef = useRef(null);
@@ -118,9 +21,9 @@ export function Work() {
   const valuesInView = useInView(valuesRef, { once: true, margin: "-100px" });
 
   return (
-    <div className="min-h-screen mx-auto container px-8 md:px-0">
+    <div className="min-h-screen mx-auto container px-8 md:px-0 pt-32 md:pt-40 space-y-20 md:space-y-40">
       {/* Our Story */}
-      <section ref={storyRef} className="pt-32 md:pt-40 pb-16 relative">
+      <section ref={storyRef} className="relative">
         <div>
           <motion.div
             initial="hidden"
@@ -129,12 +32,12 @@ export function Work() {
           >
             <div className="grid md:grid-cols-2 gap-16">
               <motion.div variants={fadeInLeft}>
-                <span className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
+                <span className={cn(page.subTitle, "text-muted-foreground")}>
                   Our Work
                 </span>
-                <h2 className="text-5xl sm:text-6xl font-bold mt-4 mb-8 leading-tight">
+                <h2 className={cn(page.heading, "mt-4 mb-8")}>
                   Crafted with Precision
-                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary/100 to-primary/60">
+                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-secondary/100 to-primary/60">
                     Built for Impact
                   </span>
                 </h2>
@@ -142,7 +45,7 @@ export function Work() {
 
               <motion.div
                 variants={fadeInRight}
-                className="space-y-6 text-lg leading-relaxed"
+                className={cn(page.content, "space-y-6")}
               >
                 <p>
                   We build impactful digital products that solve real problems.
@@ -157,7 +60,7 @@ export function Work() {
       </section>
 
       {/* Values */}
-      <section ref={valuesRef} className="py-32">
+      <section ref={valuesRef}>
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial="hidden"
@@ -167,30 +70,26 @@ export function Work() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
               {projects.map((project) => (
                 <motion.div
-                  key={project.id}
+                  key={project.title}
                   variants={fadeInUp}
-                  className="group w-full relative space-y-2"
+                  className="group w-full relative space-y-2 overflow-hidden"
                 >
-                  <Image
-                    src={project.image}
-                    alt={project.title}
-                    width={500}
-                    height={500}
-                    className="w-full aspect-video rounded-xl"
-                  />
+                  <div className="overflow-hidden rounded-xl">
+                    <Image
+                      src={`/images/${project.src}`}
+                      alt={project.title}
+                      width={500}
+                      height={500}
+                      className="w-full aspect-video object-cover rounded-xl transform transition-transform duration-500 ease-in-out group-hover:scale-110"
+                    />
+                  </div>
+
                   <div>
                     <h3 className="text-lg font-medium">{project.title}</h3>
-                    <p className="text-muted-foreground tex-sm">
+                    <p className="text-muted-foreground text-sm">
                       {project.description}
                     </p>
                   </div>
-                  {/*<div className="flex gap-6">
-                    {project.tags.map((tag) => (
-                      <Badge key={`${project.id}-${tag}`} variant="outline">
-                        {tag}
-                      </Badge>
-                    ))}
-                  </div>*/}
                 </motion.div>
               ))}
             </div>

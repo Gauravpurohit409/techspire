@@ -43,7 +43,7 @@ const navLinks: NavLinkItem[] = [
     subLinks: services.map((service) => ({
       title: service.subtitle,
       href: `/services/${service.name}`,
-      description: service.title + service.highlight,
+      description: `${service.title} ${service.highlight}`,
     })),
   },
   { title: "About", href: "/about" },
@@ -85,7 +85,7 @@ const Navbar: React.FC = () => {
       <div className="container px-0 mx-auto">
         <nav className="flex justify-between items-center w-full">
           {/* Logo */}
-          <Link href="/" className="text-lg font-bold">
+          <Link href="/" className="text-xl font-bold">
             Techspire Hub
           </Link>
 
@@ -106,7 +106,7 @@ const Navbar: React.FC = () => {
                             link.subLinks?.[0].href.includes(
                               pathname.split("/").slice(0, -1)[1],
                             ) &&
-                              "border-b border-foreground w-max rounded-none",
+                              "border-b border-secondary text-secondary w-max rounded-none",
                           )}
                         >
                           {link.title}
@@ -164,12 +164,14 @@ const Navbar: React.FC = () => {
             initial="initial"
             animate="animate"
             exit="exit"
-            className="fixed left-0 top-0 bottom-0 w-full h-dvh origin-top bg-background text-foreground p-10"
+            className="fixed left-0 top-0 bottom-0 w-full h-dvh origin-top bg-background text-foreground p-8"
           >
             <div className="flex h-full flex-col">
               {/* Top row inside menu */}
               <div className="flex justify-between items-center">
-                <h1 className="text-lg font-bold">Techspire Hub</h1>
+                <Link href="/" className="text-xl font-bold">
+                  Techspire Hub
+                </Link>
                 <Button variant="ghost" size="icon" onClick={toggleMenu}>
                   <X className="w-6 h-6" />
                 </Button>
@@ -183,7 +185,7 @@ const Navbar: React.FC = () => {
                 exit="initial"
                 className="flex flex-col h-full gap-6"
               >
-                <div className="flex-1 flex flex-col justify-center gap-6">
+                <div className="flex-1 flex flex-col mt-12 gap-4">
                   {navLinks.map((link) => (
                     <div key={link.title} className="overflow-hidden">
                       <MobileNavLink {...link} onClick={toggleMenu} />
@@ -232,24 +234,24 @@ function MobileNavLink({
   return (
     <motion.div
       variants={mobileLinkVars}
-      className="text-3xl uppercase text-foreground"
+      className="text-base uppercase text-foreground"
     >
       <Accordion type="multiple">
         {!href ? (
           <AccordionItem value={title}>
-            <AccordionTrigger className="text-3xl uppercase text-foreground py-0 cursor-pointer">
+            <AccordionTrigger className="text-base uppercase text-foreground !py-0 cursor-pointer">
               <p
                 className={cn(
-                  "hover:border-b hover:border-foreground",
+                  "hover:border-b hover:border-secondary",
                   subLinks?.[0].href.includes(
                     pathname.split("/").slice(0, -1)[1],
-                  ) && "border-b border-foreground w-max",
+                  ) && "border-b border-secondary text-secondary w-max",
                 )}
               >
                 {title}
               </p>
             </AccordionTrigger>
-            <AccordionContent className="pl-4 py-4 flex flex-col gap-2 text-3xl">
+            <AccordionContent className="pl-4 py-4 flex flex-col gap-2 text-base">
               {subLinks?.map((subLink) => (
                 <div key={subLink.title} onClick={onClick}>
                   <NavLink

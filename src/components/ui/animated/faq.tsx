@@ -4,6 +4,7 @@ import { FAQItem } from "@/types/faq";
 import { AnimatePresence, motion } from "framer-motion";
 import { Minus, Plus } from "lucide-react";
 import { useState } from "react";
+import { page } from "../styles/page";
 
 export function FAQ({ faqs }: { faqs: FAQItem[] }) {
   const [openItems, setOpenItems] = useState<Set<string>>(new Set());
@@ -138,9 +139,7 @@ export function FAQ({ faqs }: { faqs: FAQItem[] }) {
                   }}
                   className="pb-8 pr-12"
                 >
-                  <p className="text-sm text-muted-foreground leading-relaxed md:text-base">
-                    {item.answer}
-                  </p>
+                  <p className={page.description}>{item.answer}</p>
                 </motion.div>
               </motion.div>
             )}
