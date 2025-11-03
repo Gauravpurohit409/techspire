@@ -1,6 +1,8 @@
 import { contactDetails } from "@/data";
 import React from "react";
 import { Metadata } from "next";
+import { cn } from "@/lib/utils";
+import { page } from "@/components/ui/styles/page";
 
 export const metadata: Metadata = {
   title: "Terms of Use | Techspire Hub",
@@ -38,97 +40,99 @@ export const metadata: Metadata = {
 
 export default function TermsOfService() {
   return (
-    <section className="container mx-auto py-32">
-      <h1 className="text-4xl font-bold mb-6">Terms of Service</h1>
-      <p className="text-muted-foreground mb-8">Last updated: November 2025</p>
+    <section className="container mx-auto py-32 px-4 md:px-0">
+      <h1 className={cn(page.heading, "mb-6")}>Terms of Service</h1>
+      <p className={cn(page.description, "mb-8")}>
+        Last updated: November 2025
+      </p>
 
       <div className="space-y-6 text-lg leading-relaxed text-muted-foreground">
-        <p>
+        <p className={page.content}>
           Welcome to Techspire Hub Solution L.L.C (“we”, “our”, or “us”). By
           accessing or using our website, software, or digital services, you
           agree to these Terms of Service. Please read them carefully.
         </p>
 
-        <h2 className="text-secondary text-2xl font-semibold mt-8">
+        <h2 className="text-secondary text-lg md:text-2xl font-semibold mt-8">
           1. Use of Our Services
         </h2>
-        <p>
+        <p className={page.content}>
           You agree to use our services only for lawful purposes and in
           accordance with these terms. You are responsible for ensuring that
           your use complies with applicable local laws and regulations.
         </p>
 
-        <h2 className="text-secondary text-2xl font-semibold mt-8">
+        <h2 className="text-secondary text-lg md:text-2xl font-semibold mt-8">
           2. Intellectual Property
         </h2>
-        <p>
+        <p className={page.content}>
           All content, code, and materials provided by Techspire Hub Solution
           L.L.C are protected by copyright and intellectual property laws.
           Unauthorized reproduction or distribution of our materials is
           prohibited.
         </p>
 
-        <h2 className="text-secondary text-2xl font-semibold mt-8">
+        <h2 className="text-secondary text-lg md:text-2xl font-semibold mt-8">
           3. Client Responsibilities
         </h2>
-        <p>
+        <p className={page.content}>
           Clients must provide accurate information and timely feedback during
           project execution. Delays in response or approvals may affect project
           timelines and costs.
         </p>
 
-        <h2 className="text-secondary text-2xl font-semibold mt-8">
+        <h2 className="text-secondary text-lg md:text-2xl font-semibold mt-8">
           4. Payments & Billing
         </h2>
-        <p>
+        <p className={page.content}>
           Payment terms are defined in your project proposal or agreement.
           Invoices are due as stated, and work may pause or terminate if
           payments are delayed. All fees are non-refundable unless otherwise
           stated in writing.
         </p>
 
-        <h2 className="text-secondary text-2xl font-semibold mt-8">
+        <h2 className="text-secondary text-lg md:text-2xl font-semibold mt-8">
           5. Warranties & Liability
         </h2>
-        <p>
+        <p className={page.content}>
           We strive to deliver high-quality, reliable software solutions.
           However, we cannot guarantee that services will be error-free or
           uninterrupted. Our liability is limited to the amount paid for the
           specific service in question.
         </p>
 
-        <h2 className="text-secondary text-2xl font-semibold mt-8">
+        <h2 className="text-secondary text-lg md:text-2xl font-semibold mt-8">
           6. Confidentiality
         </h2>
-        <p>
+        <p className={page.content}>
           Both parties agree to keep proprietary or confidential information
           secure and not disclose it to third parties without consent, except as
           required by law.
         </p>
 
-        <h2 className="text-secondary text-2xl font-semibold mt-8">
+        <h2 className="text-secondary text-lg md:text-2xl font-semibold mt-8">
           7. Termination
         </h2>
-        <p>
+        <p className={page.content}>
           Either party may terminate the agreement with written notice. Upon
           termination, clients must pay for work completed up to that date.
           Certain clauses, such as confidentiality and intellectual property,
           will survive termination.
         </p>
 
-        <h2 className="text-secondary text-2xl font-semibold mt-8">
+        <h2 className="text-secondary text-lg md:text-2xl font-semibold mt-8">
           8. Changes to Terms
         </h2>
-        <p>
+        <p className={page.content}>
           We may update these Terms from time to time. Continued use of our
           services after changes take effect constitutes acceptance of the
           revised terms.
         </p>
 
-        <h2 className="text-secondary text-2xl font-semibold mt-8">
+        <h2 className="text-secondary text-lg md:text-2xl font-semibold mt-8">
           9. Contact Us
         </h2>
-        <p>
+        <p className={page.content}>
           For questions regarding these Terms, contact us at{" "}
           <a
             href={`mailto:${contactDetails.mail}`}

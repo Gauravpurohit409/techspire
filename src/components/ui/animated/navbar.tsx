@@ -81,7 +81,7 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <header className="bg-gradient-to-b from-background to-background/20 backdrop-blur-xs w-full transition-all fixed top-0 left-0 right-0 z-50 pl-8 pr-8 pt-8 pb-4">
+    <header className="bg-gradient-to-b from-background to-background/20 backdrop-blur-xs w-full transition-all fixed top-0 left-0 right-0 z-50 md:pl-8 md:pr-8 md:pt-8 p-4 pb-4">
       <div className="container px-0 mx-auto">
         <nav className="flex justify-between items-center w-full">
           {/* Logo */}
@@ -164,7 +164,7 @@ const Navbar: React.FC = () => {
             initial="initial"
             animate="animate"
             exit="exit"
-            className="fixed left-0 top-0 bottom-0 w-full h-dvh origin-top bg-background text-foreground p-8"
+            className="fixed left-0 top-0 bottom-0 w-full h-dvh origin-top bg-background text-foreground p-4"
           >
             <div className="flex h-full flex-col">
               {/* Top row inside menu */}

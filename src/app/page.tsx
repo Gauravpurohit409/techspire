@@ -28,7 +28,7 @@ export default function Home() {
   return (
     <div className="pt-32 md:pt-40 space-y-20 md:space-y-40">
       {/* Top container (Hero + Marquee + Services + Featured) */}
-      <div className="mx-auto container px-8 md:px-0 space-y-20 md:space-y-40">
+      <div className="mx-auto container px-4 md:px-0 space-y-20 md:space-y-40">
         {/* HERO */}
         <div className="grid md:grid-cols-12 gap-9">
           <div className="space-y-6 md:col-span-12 md:order-2 lg:col-span-8 lg:order-1">
@@ -125,7 +125,7 @@ export default function Home() {
       </div>
 
       {/* TESTIMONIALS */}
-      <div className="mx-auto container px-8 md:px-0 space-y-6">
+      <div className="mx-auto container px-4 md:px-0 space-y-6">
         <div className="text-center">
           <span className={page.subTitle}>What others say</span>
           <h2 className={page.title}>Voices of Trust</h2>
@@ -138,7 +138,7 @@ export default function Home() {
         <AnimatedTestimonials testimonials={testimonials} />
       </div>
 
-      <div className="mx-auto container px-8 md:px-0">
+      <div className="mx-auto container px-4 md:px-0">
         <CTABanner
           title="Let’s Build Something Extraordinary Together"
           description="From stunning websites and powerful apps to impactful marketing — we craft digital experiences that help your business thrive online."
@@ -146,7 +146,7 @@ export default function Home() {
       </div>
 
       {/* FAQ */}
-      <div className="mx-auto container px-8 md:px-0">
+      <div className="mx-auto container px-4 md:px-0">
         <FAQs faqs={faqs} />
       </div>
     </div>
