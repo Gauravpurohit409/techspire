@@ -6,10 +6,14 @@ import { Mail, Phone, MapPin, ArrowUpRight } from "lucide-react";
 import { AnimatedButton } from "../ui/animated/button";
 import { NavLink } from "../ui/nav-link";
 import Link from "next/link";
-import { contactDetails } from "@/data";
+import { contactDetails, socials } from "@/data";
 import { cn } from "@/lib/utils";
 import { page } from "../ui/styles/page";
 import { services } from "@/data/services";
+import { Google } from "../socials/google";
+import { Facebook } from "../socials/facebook";
+import { Instagram } from "../socials/instagram";
+import { Linkedin } from "../socials/linkedin";
 
 const company = [
   {
@@ -23,6 +27,29 @@ const company = [
   {
     title: "Reach Out",
     href: "/contact-us",
+  },
+];
+
+const socialLinks = [
+  {
+    title: "Google",
+    href: socials.google,
+    icon: Google,
+  },
+  {
+    title: "Facebook",
+    href: socials.facebook,
+    icon: Facebook,
+  },
+  {
+    title: "Instagram",
+    href: socials.instagram,
+    icon: Instagram,
+  },
+  {
+    title: "Linkedin",
+    href: socials.linkedin,
+    icon: Linkedin,
   },
 ];
 
@@ -189,18 +216,18 @@ export function Footer() {
             </div>
 
             <div className="flex space-x-4">
-              {["LinkedIn", "Twitter", "GitHub", "Dribbble"].map((social) => (
-                <motion.a
-                  key={social}
-                  href="#"
-                  className="w-10 h-10 border border-gray-800 rounded-full flex items-center justify-center text-gray-400 hover:text-white hover:border-gray-600 transition-all duration-300"
+              {socialLinks.map((social) => (
+                <MotionLink
+                  key={social.title}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 border border-border rounded-full flex items-center justify-center hover:border-muted transition-all duration-300"
                   whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <span className="text-xs font-medium">
-                    {social.charAt(0)}
-                  </span>
-                </motion.a>
+                  <social.icon className="w-5 h-5" />
+                </MotionLink>
               ))}
             </div>
           </div>

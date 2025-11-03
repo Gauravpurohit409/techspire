@@ -6,15 +6,15 @@ import {
 
 export async function POST(req: Request) {
   try {
-    const from = "onboarding@resend.dev";
+    const from = process.env.FROM!;
     const { firstName, lastName, email, phone, service, message } =
       await req.json();
     const name = `${firstName} ${lastName}`;
 
     await Email.send({
       from,
-      to: "praneeth8101@gmail.com",
-      subject: `New ${service} Inquiry from ${name}`,
+      to: process.env.TO!,
+      subject: `New ${service || ""} Inquiry from ${name}`,
       react: CompanyInquiryEmail({
         name,
         email,

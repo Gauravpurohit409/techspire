@@ -8,7 +8,7 @@ import { NavLink } from "@/components/ui/nav-link";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import { Instagram, Mail, MapPin, PhoneCall } from "lucide-react";
+import { Mail, MapPin, PhoneCall } from "lucide-react";
 import { z } from "zod";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -20,9 +20,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { contactDetails, faqs } from "@/data";
+import { contactDetails, faqs, socials } from "@/data";
 import Link from "next/link";
 import { page } from "@/components/ui/styles/page";
+import { Instagram } from "@/components/socials/instagram";
+import { isValidPhoneNumber } from "react-phone-number-input";
+import { PhoneInput } from "@/components/ui/phone-input";
+import { toast } from "sonner";
 
 const chatOptions = [
   {
@@ -31,21 +35,33 @@ const chatOptions = [
     icon: Mail,
   },
   {
-    src: "#",
+    src: socials.instagram,
     title: "Message on Instgram",
     icon: Instagram,
   },
 ];
 
-const ContactSchema = z.object({
-  firstName: z.string().min(2, "First name is required"),
-  lastName: z.string().min(2, "Last name is required"),
-  email: z.string().email("Enter a valid email"),
-  phone: z.string().optional(),
-  company: z.string().optional(),
-  message: z.string().min(10, "Message must be at least 10 characters"),
-  service: z.enum(services.map((service) => service.name)),
-});
+export const ContactSchema = z
+  .object({
+    firstName: z.string().min(2, "Enter first name"),
+    lastName: z.string().optional(),
+    email: z.email("Enter a valid email").optional(),
+    phone: z
+      .string()
+      .refine((val) => !val || isValidPhoneNumber(val), {
+        message: "Enter a valid phone number",
+      })
+      .optional(),
+    company: z.string().optional(),
+    message: z.string().min(10, "Message must be at least 10 characters"),
+    service: z
+      .enum(services.map((service) => service.name) as [string, ...string[]])
+      .optional(),
+  })
+  .refine((data) => data.email || data.phone, {
+    message: "Either email or phone number is required",
+    path: ["contactInfo"],
+  });
 
 type ContactSchema = z.infer<typeof ContactSchema>;
 
@@ -74,8 +90,9 @@ export function ContactUs() {
 
       if (result.success) {
         reset();
+        toast.success("Mail sent!");
       } else {
-        alert("Something went wrong, please try again.");
+        toast.error("Something went wrong, please try again.");
       }
     } catch (err) {
       console.error(err);
@@ -146,20 +163,27 @@ export function ContactUs() {
                 </p>
               )}
             </LabelInputContainer>
-            <LabelInputContainer>
-              <Label htmlFor="phoneNumber">Phone number</Label>
-              <Input
-                id="phoneNumber"
-                placeholder="9848032919"
-                type="text"
-                {...register("phone", { required: true })}
-              />
-              {errors.phone && (
-                <p className="text-destructive text-sm">
-                  {errors.phone.message}
-                </p>
+            <Controller
+              control={control}
+              name="phone"
+              render={({ field: { name, value, onChange } }) => (
+                <LabelInputContainer>
+                  <Label htmlFor="phoneNumber">Phone number</Label>
+                  <PhoneInput
+                    placeholder="Enter phone number"
+                    name={name}
+                    value={value}
+                    onChange={onChange}
+                    className="!w-full"
+                  />
+                  {errors.phone && (
+                    <p className="text-destructive text-sm">
+                      {errors.phone.message}
+                    </p>
+                  )}
+                </LabelInputContainer>
               )}
-            </LabelInputContainer>
+            />
           </div>
           <Controller
             name="service"
@@ -168,7 +192,11 @@ export function ContactUs() {
               <LabelInputContainer>
                 <Label htmlFor="service">Service</Label>
                 <Select value={value} onValueChange={onChange}>
-                  <SelectTrigger name={name} id="service">
+                  <SelectTrigger
+                    name={name}
+                    id="service"
+                    className="capitalize"
+                  >
                     <SelectValue placeholder="Select service" />
                   </SelectTrigger>
                   <SelectContent>
@@ -201,7 +229,7 @@ export function ContactUs() {
             />
           </LabelInputContainer>
           <AnimatedButton type="submit" size="lg" disabled={isSubmitting}>
-            <NavLink title="Send Message" />
+            <NavLink title={isSubmitting ? "Sending..." : "Send Message"} />
           </AnimatedButton>
         </form>
         <div className="lg:col-span-2 space-y-16">
@@ -218,11 +246,11 @@ export function ContactUs() {
                 href={opt.src}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors duration-300 underline underline-offset-4"
+                className="group flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors duration-300 underline underline-offset-4"
                 whileHover={{ x: 4 }}
                 transition={{ duration: 0.2 }}
               >
-                <opt.icon className="w-4 h-4" />
+                <opt.icon className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
                 {opt.title}
               </MotionLink>
             ))}

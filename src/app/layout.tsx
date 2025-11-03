@@ -4,6 +4,7 @@ import "./globals.css";
 import { SmoothScrollProvider } from "@/components/ui/animated/scroll-wrapper";
 import Navbar from "@/components/ui/animated/navbar";
 import { Footer } from "@/components/sections/footer";
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -67,6 +68,7 @@ export default function RootLayout({
             <Footer />
           </main>
         </SmoothScrollProvider>
+        <Toaster />
       </body>
     </html>
   );

@@ -108,14 +108,24 @@ export function NavLink({
               </motion.span>
             </>
           ) : (
-            <span className={cn("inline-block", isActive && "text-secondary")}>
+            <span
+              className={cn(
+                "inline-block",
+                isActive && (underline ? "text-secondary" : "text-foreground"),
+              )}
+            >
               {title}
             </span>
           )}
 
           {/* Underline animation */}
           {isActive ? (
-            <div className="absolute left-0 bottom-0 h-px w-full bg-secondary" />
+            <div
+              className={cn(
+                "absolute left-0 bottom-0 h-px w-full",
+                underline ? "bg-secondary" : "bg-foreground",
+              )}
+            />
           ) : underline ? (
             <AnimatePresence mode="wait">
               {(hovered || autoPlay) && (

@@ -64,6 +64,14 @@ export default function PrivacyPolicy() {
           type, device information, and site usage analytics to improve our
           performance.
         </p>
+        <p className={page.content}>
+          For functionality purposes, our systems may detect your approximate
+          location (e.g., country or region) using your IP address. This is used
+          only to automatically set preferences such as default country codes or
+          localization options. We do not store, log, or share individual IP
+          addresses, and no precise location or personally identifiable
+          information is collected through this process.
+        </p>
 
         <h2 className="text-secondary text-lg md:text-2xl font-semibold mt-8">
           2. How We Use Your Information
@@ -73,6 +81,11 @@ export default function PrivacyPolicy() {
           you, and deliver tailored software solutions. We may also use your
           information for internal analytics, service updates, and marketing
           communications (only with your consent).
+        </p>
+        <p className={page.content}>
+          Additionally, we may use approximate country detection to improve your
+          user experience — for example, by pre-selecting your country code in
+          forms or displaying relevant regional content.
         </p>
 
         <h2 className="text-secondary text-lg md:text-2xl font-semibold mt-8">

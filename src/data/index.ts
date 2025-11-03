@@ -1,7 +1,14 @@
 export const contactDetails = {
   mail: "sam@techspiirehub.com",
   phone: "+91 7016459552",
-  location: "San Francisco, CA",
+  location: "Hor Al Anz East - Deira",
+};
+
+export const socials = {
+  google: "https://share.google/j2jGnKcSVReWXEISV",
+  facebook: "https://www.facebook.com/profile.php?id=61582955926457",
+  instagram: "https://www.instagram.com/techspirehub?igsh=M3AzeHNxejRpMWZy",
+  linkedin: "https://www.linkedin.com/in/shamsuddin-shaikh-27689037b/",
 };
 
 export const faqs = [

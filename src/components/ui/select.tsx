@@ -32,7 +32,7 @@ function SelectTrigger({
 }: React.ComponentProps<typeof SelectPrimitive.Trigger> & {
   size?: "sm" | "default";
 }) {
-  const radius = 100; // controls size of radial effect
+  const radius = 100;
   const [visible, setVisible] = React.useState(false);
 
   const mouseX = useMotionValue(0);
