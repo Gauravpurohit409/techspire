@@ -40,7 +40,7 @@ export const metadata: Metadata = {
 
 export default function PrivacyPolicy() {
   return (
-    <section className="container mx-auto py-32 px-4 md:px-0">
+    <>
       <h1 className={cn(page.heading, "mb-6")}>Privacy Policy</h1>
       <p className={cn(page.description, "mb-8")}>
         Last updated: November 2025
@@ -133,6 +133,6 @@ export default function PrivacyPolicy() {
           .
         </p>
       </div>
-    </section>
+    </>
   );
 }

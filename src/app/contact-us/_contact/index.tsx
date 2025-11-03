@@ -83,7 +83,7 @@ export function ContactUs() {
   };
 
   return (
-    <div className="mx-auto container px-8 md:px-0 pt-32 md:pt-40 space-y-20 md:space-y-40">
+    <>
       <div className="space-y-6 text-center">
         <MaskText
           className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight text-balance"
@@ -269,7 +269,7 @@ export function ContactUs() {
       </div>
 
       <FAQs faqs={faqs} />
-    </div>
+    </>
   );
 }
 

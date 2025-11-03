@@ -21,7 +21,7 @@ export function Work() {
   const valuesInView = useInView(valuesRef, { once: true, margin: "-100px" });
 
   return (
-    <div className="min-h-screen mx-auto container px-8 md:px-0 pt-32 md:pt-40 space-y-20 md:space-y-40">
+    <>
       {/* Our Story */}
       <section ref={storyRef} className="relative">
         <div>
@@ -96,6 +96,6 @@ export function Work() {
           </motion.div>
         </div>
       </section>
-    </div>
+    </>
   );
 }

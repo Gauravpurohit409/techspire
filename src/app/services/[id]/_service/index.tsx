@@ -31,14 +31,14 @@ export function ServiceDetail() {
 
   if (!serviceInfo) {
     return (
-      <div className="min-h-screen flex items-center justify-center text-center text-muted-foreground">
+      <div className="flex items-center justify-center text-center text-muted-foreground">
         <p>Service not found.</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen mx-auto container px-8 md:px-0 pt-32 md:pt-40 space-y-20 md:space-y-40">
+    <>
       {/* --- Story Section --- */}
       <section ref={storyRef} className="relative">
         <motion.div
@@ -109,6 +109,6 @@ export function ServiceDetail() {
         description={serviceInfo.banner.description}
         buttonText="Let's Collaborate"
       />
-    </div>
+    </>
   );
 }

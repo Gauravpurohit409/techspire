@@ -61,7 +61,9 @@ export default function RootLayout({
         <SmoothScrollProvider>
           <main className="w-full space-y-20">
             <Navbar />
-            {children}
+            <div className="min-h-screen pt-32 md:pt-40 space-y-20 md:space-y-40 mx-auto container px-4 md:px-6">
+              {children}
+            </div>
             <Footer />
           </main>
         </SmoothScrollProvider>
