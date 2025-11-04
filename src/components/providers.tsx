@@ -5,7 +5,12 @@ import Lenis from "lenis";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="dark"
+      disableTransitionOnChange
+      storageKey="next-ui-theme"
+    >
       <SmoothScrollProvider>{children}</SmoothScrollProvider>
     </ThemeProvider>
   );
