@@ -54,7 +54,7 @@ export function ServiceDetail() {
               </span>
               <h2 className={cn(page.heading, "font-bold leading-tight")}>
                 {serviceInfo.title}{" "}
-                <span className="inline text-transparent bg-clip-text bg-gradient-to-r from-secondary/100 to-primary/60">
+                <span className="inline text-transparent bg-clip-text bg-gradient-to-r from-secondary to-primary">
                   {serviceInfo.highlight}
                 </span>
               </h2>
@@ -89,6 +89,12 @@ export function ServiceDetail() {
       {/* --- Process Section --- */}
       <Process {...serviceInfo.process} />
 
+      <CTABanner
+        title={serviceInfo.banner.title}
+        description={serviceInfo.banner.description}
+        buttonText="Let's Collaborate"
+      />
+
       {/* --- FAQs Section --- */}
       <section ref={faqsRef}>
         <motion.div
@@ -103,12 +109,6 @@ export function ServiceDetail() {
           <FAQ faqs={serviceInfo.faqs.items} />
         </motion.div>
       </section>
-
-      <CTABanner
-        title={serviceInfo.banner.title}
-        description={serviceInfo.banner.description}
-        buttonText="Let's Collaborate"
-      />
     </>
   );
 }

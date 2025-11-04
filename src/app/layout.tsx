@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { SmoothScrollProvider } from "@/components/ui/animated/scroll-wrapper";
 import Navbar from "@/components/ui/animated/navbar";
 import { Footer } from "@/components/sections/footer";
 import { Toaster } from "@/components/ui/sonner";
+import { Providers } from "@/components/providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -57,9 +57,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased dark`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <SmoothScrollProvider>
+        <Providers>
           <main className="w-full space-y-20">
             <Navbar />
             <div className="min-h-screen pt-32 md:pt-40 space-y-20 md:space-y-40 mx-auto container px-4 md:px-6">
@@ -67,7 +67,7 @@ export default function RootLayout({
             </div>
             <Footer />
           </main>
-        </SmoothScrollProvider>
+        </Providers>
         <Toaster />
       </body>
     </html>

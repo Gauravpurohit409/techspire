@@ -56,7 +56,7 @@ export function Process({
                 className="group relative w-full"
               >
                 <div className="flex gap-6">
-                  <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-primary/20 to-secondary/30 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-primary/80 dark:from-primary/30 to-secondary/80 dark:to-secondary/30 text-primary-foreground rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                     {step.number}
                   </div>
                   <div>

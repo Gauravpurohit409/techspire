@@ -23,6 +23,7 @@ import {
 } from "../accordian";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import ThemeSwitcher from "../theme-switcher";
 
 type Service = {
   title: string;
@@ -136,13 +137,16 @@ const Navbar: React.FC = () => {
             </NavigationMenuList>
           </NavigationMenu>
 
-          <AnimatedButton className="hidden md:flex" asChild>
-            <NavLink
-              title="Get In Touch"
-              href="/contact-us"
-              underline={false}
-            />
-          </AnimatedButton>
+          <div className="flex items-center gap-2">
+            <ThemeSwitcher className="hidden md:flex" />
+            <AnimatedButton className="hidden md:flex" asChild>
+              <NavLink
+                title="Get In Touch"
+                href="/contact-us"
+                underline={false}
+              />
+            </AnimatedButton>
+          </div>
 
           {/* Mobile Trigger */}
           <Button
@@ -193,7 +197,7 @@ const Navbar: React.FC = () => {
                   ))}
                 </div>
 
-                <div className="w-full flex justify-end p-6 border-t">
+                <div className="w-full flex justify-between p-6 border-t">
                   <AnimatedButton size="lg" className="w-full" asChild>
                     <NavLink
                       title="Get In Touch"
@@ -201,6 +205,7 @@ const Navbar: React.FC = () => {
                       underline={false}
                     />
                   </AnimatedButton>
+                  <ThemeSwitcher />
                 </div>
               </motion.div>
             </div>

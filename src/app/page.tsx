@@ -1,28 +1,20 @@
 import { AnimatedButton } from "@/components/ui/animated/button";
-import { Marquee } from "@/components/ui/animated/marquee";
 import { NavLink } from "@/components/ui/nav-link";
-// import { PixelatedCanvas } from "@/components/ui/pixelated-canvas";
-import { Lavender } from "@/components/client-logos/lavender";
-import { Platinum } from "@/components/client-logos/platinum";
-import { Rainfall } from "@/components/client-logos/rainfall";
-import { Remind } from "@/components/client-logos/remind";
-import { Singularity } from "@/components/client-logos/singularity";
-import { Spotify } from "@/components/client-logos/spotify";
-import { Webflow } from "@/components/client-logos/webflow";
 import { ArrowUpRight } from "lucide-react";
 import { MaskText } from "@/components/ui/animated/mask-text";
 import React from "react";
 import { FeaturedProjects } from "@/components/sections/featured-projects";
-import { AnimatedTestimonials } from "@/components/ui/animated/testimonials";
+// import { AnimatedTestimonials } from "@/components/ui/animated/testimonials";
 import { Services } from "@/components/sections/services";
 import { FAQs } from "@/components/sections/FAQs";
 import { CTABanner } from "@/components/sections/banner";
-import { Stats } from "@/components/sections/stats";
+// import { Stats } from "@/components/sections/stats";
 import { ParticleImage } from "@/components/ui/animated/particles";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { page } from "@/components/ui/styles/page";
-import { faqs, testimonials } from "@/data";
+import { faqs } from "@/data";
+// import { clientLogos, testimonials} from "@/data";
 
 export default function Home() {
   return (
@@ -68,21 +60,13 @@ export default function Home() {
       </div>
 
       {/* LOGO MARQUEE */}
-      <div className="w-full overflow-x-hidden">
+      {/*<div className="w-full overflow-x-hidden">
         <Marquee
-          logos={[
-            Platinum,
-            Lavender,
-            Rainfall,
-            Remind,
-            Singularity,
-            Spotify,
-            Webflow,
-          ]}
+          logos={clientLogos}
           from="0"
           to="-100%"
         />
-      </div>
+      </div>*/}
 
       {/* FEATURED PROJECTS */}
       <div className="space-y-6">
@@ -110,7 +94,7 @@ export default function Home() {
       <Services />
 
       {/* STATS */}
-      <div className="space-y-6">
+      {/*<div className="space-y-6">
         <div className="text-center">
           <span className={page.subTitle}>Our Stats</span>
           <h2 className={page.title}>Numbers That Reflect Our Commitment</h2>
@@ -120,10 +104,10 @@ export default function Home() {
           </p>
         </div>
         <Stats />
-      </div>
+      </div>*/}
 
       {/* TESTIMONIALS */}
-      <div className="space-y-6">
+      {/*<div className="space-y-6">
         <div className="text-center">
           <span className={page.subTitle}>What others say</span>
           <h2 className={page.title}>Voices of Trust</h2>
@@ -134,7 +118,7 @@ export default function Home() {
           </p>
         </div>
         <AnimatedTestimonials testimonials={testimonials} />
-      </div>
+      </div>*/}
 
       <CTABanner
         title="Let’s Build Something Extraordinary Together"

@@ -16,7 +16,7 @@ const buttonVariants = cva(
           "border bg-background hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:hover:bg-input/50",
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        soft: "bg-foreground/10",
+        soft: "bg-foreground/20 dark:bg-foreground/10",
         ghost: "hover:bg-foreground/10 hover:text-foreground",
         link: "text-primary underline-offset-4 hover:underline",
       },
@@ -25,6 +25,7 @@ const buttonVariants = cva(
         sm: "h-8 rounded gap-1.5 px-3 has-[>svg]:px-2.5",
         lg: "h-12 rounded px-5 has-[>svg]:px-4",
         icon: "size-9",
+        ["icon-lg"]: "size-10",
       },
     },
     defaultVariants: {

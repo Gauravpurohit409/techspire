@@ -32,9 +32,9 @@ export function CTABanner({
       transition={{ duration: 0.8, ease: "easeOut" }}
       className="w-full"
     >
-      <div className="relative overflow-hidden rounded-xl border border-primary/5 p-8 sm:p-16 lg:p-20 ">
+      <div className="relative overflow-hidden rounded-xl border border-primary/5 p-8 sm:p-16 lg:p-20 text-primary-foreground before:absolute before:inset-0 before:rounded-xl before:bg-[#020617] before:opacity-80">
         {/* Subtle glow effect */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary to-primary/10 opacity-50" />
+        <div className="absolute inset-0 bg-gradient-to-br from-primary to-secondary opacity-50" />
 
         <div className="relative z-10 flex flex-col items-center justify-center text-center space-y-8 max-w-5xl mx-auto">
           <MaskText

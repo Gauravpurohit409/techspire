@@ -4,6 +4,7 @@ import { useMotionValue, useInView, useSpring, motion } from "framer-motion";
 import { fadeInUp, staggerContainer } from "@/lib/variants";
 import { cn } from "@/lib/utils";
 import { page } from "../ui/styles/page";
+import { stats } from "@/data";
 
 function AnimatedCounter({
   value,
@@ -45,12 +46,7 @@ export function Stats() {
           variants={staggerContainer}
           className="grid grid-cols-2 md:grid-cols-4 gap-8"
         >
-          {[
-            { number: 500, label: "Projects Delivered", suffix: "+" },
-            { number: 200, label: "Happy Clients", suffix: "+" },
-            { number: 50, label: "Team Members", suffix: "+" },
-            { number: 15, label: "Countries", suffix: "+" },
-          ].map((stat, index) => (
+          {stats.map((stat, index) => (
             <motion.div key={index} variants={fadeInUp} className="text-center">
               <div
                 className={cn(

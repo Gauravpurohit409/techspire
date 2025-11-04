@@ -1,3 +1,11 @@
+import { Lavender } from "@/components/client-logos/lavender";
+import { Platinum } from "@/components/client-logos/platinum";
+import { Rainfall } from "@/components/client-logos/rainfall";
+import { Remind } from "@/components/client-logos/remind";
+import { Singularity } from "@/components/client-logos/singularity";
+import { Spotify } from "@/components/client-logos/spotify";
+import { Webflow } from "@/components/client-logos/webflow";
+
 export const contactDetails = {
   mail: "sam@techspiirehub.com",
   phone: "+91 7016459552",
@@ -87,4 +95,21 @@ export const testimonials = [
     designation: "VP of Technology at FutureNet",
     src: "https://images.unsplash.com/photo-1624561172888-ac93c696e10c?q=80&w=2592&auto=format&fit=crop&ixlib=rb-4.0.3",
   },
+];
+
+export const stats = [
+  { number: 500, label: "Projects Delivered", suffix: "+" },
+  { number: 200, label: "Happy Clients", suffix: "+" },
+  { number: 50, label: "Team Members", suffix: "+" },
+  { number: 15, label: "Countries", suffix: "+" },
+];
+
+export const clientLogos = [
+  Platinum,
+  Lavender,
+  Rainfall,
+  Remind,
+  Singularity,
+  Spotify,
+  Webflow,
 ];

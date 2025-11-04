@@ -1,9 +1,14 @@
 "use client";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
+import { useTheme } from "next-themes";
 import Image from "next/image";
 
 export function WebDevelopment() {
+  const { theme } = useTheme();
+  const image =
+    theme === "dark" ? "web-development-dark.png" : "web-development-light.png";
+
   return (
     <div className="flex justify-center px-4 md:px-10">
       <motion.figure
@@ -33,7 +38,7 @@ export function WebDevelopment() {
         <div className="bg-background rounded-b-lg">
           <Image
             className="max-w-full h-auto rounded-b-lg"
-            src="/images/services/web-development.png"
+            src={`/images/services/${image}`}
             alt="Browser Placeholder"
             width={500}
             height={500}

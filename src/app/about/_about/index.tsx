@@ -2,10 +2,10 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
+// import { Button } from "@/components/ui/button";
+// import Link from "next/link";
 import Image from "next/image";
-import { Stats } from "@/components/sections/stats";
+// import { Stats } from "@/components/sections/stats";
 import { CTABanner } from "@/components/sections/banner";
 import { cn } from "@/lib/utils";
 import { page } from "@/components/ui/styles/page";
@@ -16,22 +16,23 @@ import {
   fadeInUp,
   staggerContainer,
 } from "@/lib/variants";
-import { processSteps, teamMembers, values } from "@/data/about";
-import { Linkedin } from "@/components/socials/linkedin";
+import { processSteps, values } from "@/data/about";
+// import { teamMembers } from "@/data/about";
+// import { Linkedin } from "@/components/socials/linkedin";
 
 export function AboutUs() {
   const storyRef = useRef(null);
   const valuesRef = useRef(null);
-  const teamRef = useRef(null);
+  // const teamRef = useRef(null);
 
   const storyInView = useInView(storyRef, { once: true, margin: "-100px" });
   const valuesInView = useInView(valuesRef, { once: true, margin: "-100px" });
-  const teamInView = useInView(teamRef, { once: true, margin: "-100px" });
+  // const teamInView = useInView(teamRef, { once: true, margin: "-100px" });
 
   return (
-    <div className="min-h-screen mx-auto container px-8 md:px-0">
+    <>
       {/* Our Story */}
-      <section ref={storyRef} className="pt-32 md:pt-40 pb-16 relative">
+      <section ref={storyRef} className="relative">
         <div>
           <motion.div
             initial="hidden"
@@ -85,10 +86,10 @@ export function AboutUs() {
       </section>
 
       {/* Stats */}
-      <Stats />
+      {/*<Stats />*/}
 
       {/* Values */}
-      <section ref={valuesRef} className="py-32">
+      <section ref={valuesRef}>
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial="hidden"
@@ -114,7 +115,7 @@ export function AboutUs() {
                   className="group relative p-6 bg-foreground/5 border border-border rounded-lg hover:bg-foregound/10 hover:border-foreground/20 transition-all duration-500"
                 >
                   <div className="flex items-start gap-6">
-                    <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-primary/20 to-secondary/30 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br text-primary-foreground from-primary/80 to-secondary/80 dark:from-primary/30 dark:to-secondary/30 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                       <value.icon className="w-5 h-5" />
                     </div>
                     <div>
@@ -136,7 +137,7 @@ export function AboutUs() {
       />
 
       {/* Meet the Team */}
-      <section ref={teamRef} className="py-32">
+      {/*<section ref={teamRef}>
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial="hidden"
@@ -200,12 +201,12 @@ export function AboutUs() {
             </div>
           </motion.div>
         </div>
-      </section>
+      </section>*/}
 
       <CTABanner
         title="Let’s Build Something Extraordinary Together"
         description="From stunning websites and powerful apps to impactful marketing — we craft digital experiences that help your business thrive online."
       />
-    </div>
+    </>
   );
 }

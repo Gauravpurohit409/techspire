@@ -1,7 +1,15 @@
 "use client";
-
+import { ThemeProvider } from "next-themes";
 import { useEffect, useState, createContext, useContext } from "react";
 import Lenis from "lenis";
+
+export function Providers({ children }: { children: React.ReactNode }) {
+  return (
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <SmoothScrollProvider>{children}</SmoothScrollProvider>
+    </ThemeProvider>
+  );
+}
 
 const SmoothScrollContext = createContext<Lenis | null>(null);
 export function useSmoothScroller() {
