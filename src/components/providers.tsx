@@ -11,7 +11,8 @@ export function Providers({ children }: { children: React.ReactNode }) {
       disableTransitionOnChange
       storageKey="next-ui-theme"
     >
-      <SmoothScrollProvider>{children}</SmoothScrollProvider>
+      {children}
+      {/*<SmoothScrollProvider>{children}</SmoothScrollProvider>*/}
     </ThemeProvider>
   );
 }

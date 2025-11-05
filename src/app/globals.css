@@ -6,6 +6,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-opposite-foreground: var(--opposite-foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --color-sidebar-ring: var(--sidebar-ring);
@@ -66,6 +67,7 @@
   --radius: 0.625rem;
   --background: oklch(0.95 0.02 270);
   --foreground: oklch(0.13 0.04 265);
+  --opposite-foreground: oklch(0.95 0.01 270);
   --card: oklch(0.98 0.01 270);
   --card-foreground: oklch(0.13 0.04 265);
   --popover: oklch(0.98 0.01 270);
@@ -108,6 +110,7 @@
 .dark {
   --background: oklch(0.13 0.04 265);
   --foreground: oklch(0.95 0.01 270);
+  --opposite-foreground: oklch(0.13 0.04 265);
   --card: oklch(0.18 0.03 265);
   --card-foreground: oklch(0.95 0.01 270);
   --popover: oklch(0.18 0.03 265);

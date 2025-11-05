@@ -76,11 +76,7 @@ const InputComponent = React.forwardRef<
   HTMLInputElement,
   React.ComponentProps<"input">
 >(({ className, ...props }, ref) => (
-  <Input
-    className={cn("rounded-e-md rounded-s-none", className)}
-    {...props}
-    ref={ref}
-  />
+  <Input className={cn(className)} {...props} ref={ref} />
 ));
 InputComponent.displayName = "InputComponent";
 
@@ -116,7 +112,7 @@ const CountrySelect = ({
         <Button
           type="button"
           variant="outline"
-          className="h-10 flex gap-1 rounded-e-none rounded-s-md border-r-0 px-3 py-2 focus:z-10"
+          className="h-10 flex gap-1 !bg-transparent rounded-none border-x-0 border-t-0 !border-b !border-opposite-foreground px-3 py-2 focus:z-10"
           disabled={disabled}
         >
           <FlagComponent
@@ -125,7 +121,7 @@ const CountrySelect = ({
           />
           <ChevronsUpDown
             className={cn(
-              "-mr-2 size-4 opacity-50",
+              "-mr-2 size-4 opacity-50 text-opposite-foreground",
               disabled ? "hidden" : "opacity-100",
             )}
           />
@@ -197,7 +193,7 @@ const CountrySelectOption = ({
     <CommandItem className="gap-2" onSelect={handleSelect}>
       <FlagComponent country={country} countryName={countryName} />
       <span className="flex-1 text-sm">{countryName}</span>
-      <span className="text-sm text-foreground/50">{`+${RPNInput.getCountryCallingCode(
+      <span className="text-sm text-opposite-foreground/50">{`+${RPNInput.getCountryCallingCode(
         country,
       )}`}</span>
       <CheckIcon

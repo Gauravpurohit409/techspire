@@ -111,7 +111,7 @@ export function NavLink({
             <span
               className={cn(
                 "inline-block",
-                isActive && (underline ? "text-secondary" : "text-foreground"),
+                isActive && underline && "text-secondary",
               )}
             >
               {title}
@@ -123,7 +123,7 @@ export function NavLink({
             <div
               className={cn(
                 "absolute left-0 bottom-0 h-px w-full",
-                underline ? "bg-secondary" : "bg-foreground",
+                underline && "bg-secondary",
               )}
             />
           ) : underline ? (

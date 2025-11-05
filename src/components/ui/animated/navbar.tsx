@@ -144,6 +144,7 @@ const Navbar: React.FC = () => {
                 title="Get In Touch"
                 href="/contact-us"
                 underline={false}
+                className="!text-primary-foreground"
               />
             </AnimatedButton>
           </div>
@@ -198,13 +199,15 @@ const Navbar: React.FC = () => {
                 </div>
 
                 <div className="w-full flex justify-between p-6 border-t">
-                  <AnimatedButton size="lg" className="w-full" asChild>
-                    <NavLink
-                      title="Get In Touch"
-                      href="/contact-us"
-                      underline={false}
-                    />
-                  </AnimatedButton>
+                  <div onClick={toggleMenu}>
+                    <AnimatedButton size="lg" className="w-full" asChild>
+                      <NavLink
+                        title="Get In Touch"
+                        href="/contact-us"
+                        underline={false}
+                      />
+                    </AnimatedButton>
+                  </div>
                   <ThemeSwitcher />
                 </div>
               </motion.div>

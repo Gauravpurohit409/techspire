@@ -1,5 +1,4 @@
 "use client";
-import { useMediaQuery } from "@/hooks/use-media-query";
 import React from "react";
 
 type Particle = {
@@ -15,6 +14,8 @@ const REPEL_RADIUS = 60;
 const REPEL_SPEED = 10;
 const RETURN_SPEED = 0.02;
 const DELAY = 60000;
+const WIDTH = 400;
+const HEIGHT = 400;
 
 export function ParticleImage() {
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
@@ -28,11 +29,6 @@ export function ParticleImage() {
   const isInteractingRef = React.useRef(false);
   const rippleIntervalRef = React.useRef<NodeJS.Timeout | null>(null);
 
-  const isLarge = useMediaQuery("(min-width: 1024px)");
-  const isMedium = useMediaQuery("(min-width: 768px)");
-  const width = isLarge ? 400 : isMedium ? 300 : 200;
-  const height = width;
-
   React.useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -44,24 +40,24 @@ export function ParticleImage() {
     img.src = "/logo.png";
 
     const compute = () => {
-      canvas.width = width;
-      canvas.height = height;
-      canvas.style.width = `${width}px`;
-      canvas.style.height = `${height}px`;
+      canvas.width = WIDTH;
+      canvas.height = HEIGHT;
+      canvas.style.width = `${WIDTH}px`;
+      canvas.style.height = `${HEIGHT}px`;
 
-      ctx.clearRect(0, 0, width, height);
-      ctx.drawImage(img, 0, 0, width, height);
+      ctx.clearRect(0, 0, WIDTH, HEIGHT);
+      ctx.drawImage(img, 0, 0, WIDTH, HEIGHT);
 
-      const imageData = ctx.getImageData(0, 0, width, height).data;
+      const imageData = ctx.getImageData(0, 0, WIDTH, HEIGHT).data;
 
-      const numRows = Math.round(height / PARTICLE_DIAMETER);
-      const numCols = Math.round(width / PARTICLE_DIAMETER);
+      const numRows = Math.round(HEIGHT / PARTICLE_DIAMETER);
+      const numCols = Math.round(WIDTH / PARTICLE_DIAMETER);
 
       const particles: Array<Particle> = [];
       for (let row = 0; row < numRows; row++) {
         for (let col = 0; col < numCols; col++) {
           const pixelIndex =
-            (row * PARTICLE_DIAMETER * width + col * PARTICLE_DIAMETER) * 4;
+            (row * PARTICLE_DIAMETER * WIDTH + col * PARTICLE_DIAMETER) * 4;
           const red = imageData[pixelIndex];
           const green = imageData[pixelIndex + 1];
           const blue = imageData[pixelIndex + 2];
@@ -80,7 +76,7 @@ export function ParticleImage() {
 
     const drawParticles = () => {
       updateParticles();
-      ctx.clearRect(0, 0, width, height);
+      ctx.clearRect(0, 0, WIDTH, HEIGHT);
       particlesRef.current.forEach((p) => {
         ctx.beginPath();
         ctx.arc(p.x, p.y, PARTICLE_DIAMETER / 2, 0, 2 * Math.PI);
@@ -172,7 +168,7 @@ export function ParticleImage() {
       canvas.removeEventListener("mousemove", onMouseMove);
       canvas.removeEventListener("mouseleave", onMouseLeave);
     };
-  }, [width, height]);
+  }, []);
 
   return (
     <canvas
