@@ -61,7 +61,7 @@ export function Footer() {
     <footer>
       {/*<div className="w-full h-px bg-gradient-to-r from-transparent via-muted to-transparent" />*/}
       <div className="w-full h-px bg-gradient-to-r from-transparent via-muted-foreground/30 to-transparent" />
-      <div className="container mx-auto px-4 md:px-6 xl:px-0 py-20">
+      <div className="container mx-auto px-4 md:px-6 lg:px-4 py-20">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-16">
           {/* Brand Section */}
           <motion.div

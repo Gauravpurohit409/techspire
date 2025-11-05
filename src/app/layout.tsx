@@ -52,7 +52,7 @@ export default function RootLayout({
         <Providers>
           <main className="w-full space-y-20">
             <Navbar />
-            <div className="min-h-screen pt-32 md:pt-40 space-y-20 md:space-y-40 mx-auto container px-4 md:px-6 xl:px-0">
+            <div className="min-h-screen pt-32 md:pt-40 space-y-20 md:space-y-40 mx-auto container px-4 md:px-6 lg:px-4">
               {children}
             </div>
             <Footer />
