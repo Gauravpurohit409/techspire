@@ -9,7 +9,7 @@ type Particle = {
   color: string;
 };
 
-const PARTICLE_DIAMETER = 4;
+const PARTICLE_DIAMETER = 3;
 const REPEL_RADIUS = 60;
 const REPEL_SPEED = 10;
 const RETURN_SPEED = 0.02;

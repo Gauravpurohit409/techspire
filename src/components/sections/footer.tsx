@@ -14,6 +14,7 @@ import { Google } from "../socials/google";
 import { Facebook } from "../socials/facebook";
 import { Instagram } from "../socials/instagram";
 import { Linkedin } from "../socials/linkedin";
+import { Logo } from "../ui/logo";
 
 const company = [
   {
@@ -60,7 +61,7 @@ export function Footer() {
     <footer>
       {/*<div className="w-full h-px bg-gradient-to-r from-transparent via-muted to-transparent" />*/}
       <div className="w-full h-px bg-gradient-to-r from-transparent via-muted-foreground/30 to-transparent" />
-      <div className="container mx-auto px-4 md:px-6 py-20">
+      <div className="container mx-auto px-4 md:px-6 xl:px-0 py-20">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-16">
           {/* Brand Section */}
           <motion.div
@@ -70,9 +71,7 @@ export function Footer() {
             viewport={{ once: true }}
             className="lg:col-span-5"
           >
-            <Link href="/" className="text-xl font-bold mb-6">
-              Techspire Hub
-            </Link>
+            <Logo className="mb-6" />
             <p className={cn(page.content, "mb-8 max-w-sm")}>
               We craft digital experiences that drive growth and transform
               businesses through innovative software solutions.

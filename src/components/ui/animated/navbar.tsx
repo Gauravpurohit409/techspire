@@ -24,6 +24,7 @@ import {
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import ThemeSwitcher from "../theme-switcher";
+import { Logo } from "../logo";
 
 type Service = {
   title: string;
@@ -83,12 +84,10 @@ const Navbar: React.FC = () => {
 
   return (
     <header className="bg-gradient-to-b from-background to-background/20 backdrop-blur-xs w-full transition-all fixed top-0 left-0 right-0 z-50 md:pl-8 md:pr-8 md:pt-8 p-4 pb-4">
-      <div className="container px-0 mx-auto">
+      <div className="container px-0 md:px-6 xl:px-0 mx-auto">
         <nav className="flex justify-between items-center w-full">
           {/* Logo */}
-          <Link href="/" className="text-xl font-bold">
-            Techspire Hub
-          </Link>
+          <Logo />
 
           {/* Desktop Menu */}
           <NavigationMenu className="hidden md:flex">
@@ -174,9 +173,7 @@ const Navbar: React.FC = () => {
             <div className="flex h-full flex-col">
               {/* Top row inside menu */}
               <div className="flex justify-between items-center">
-                <Link href="/" className="text-xl font-bold">
-                  Techspire Hub
-                </Link>
+                <Logo />
                 <Button variant="ghost" size="icon" onClick={toggleMenu}>
                   <X className="w-6 h-6" />
                 </Button>
@@ -198,7 +195,7 @@ const Navbar: React.FC = () => {
                   ))}
                 </div>
 
-                <div className="w-full flex justify-between p-6 border-t">
+                <div className="w-full flex justify-between p-4 border-t">
                   <div onClick={toggleMenu}>
                     <AnimatedButton size="lg" className="w-full" asChild>
                       <NavLink
