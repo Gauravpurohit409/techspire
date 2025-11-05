@@ -83,8 +83,8 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <header className="bg-gradient-to-b from-background to-background/20 backdrop-blur-xs w-full transition-all fixed top-0 left-0 right-0 z-50 md:pl-8 md:pr-8 md:pt-8 p-4 pb-4">
-      <div className="container px-0 md:px-6 lg:px-4 mx-auto">
+    <header className="bg-gradient-to-b from-background to-background/20 backdrop-blur-xs w-full transition-all fixed top-0 left-0 right-0 z-50 pt-4 md:pt-8 pb-4">
+      <div className="container mx-auto px-4 md:px-6 lg:px-4">
         <nav className="flex justify-between items-center w-full">
           {/* Logo */}
           <Logo />
