@@ -144,7 +144,8 @@ export function CompanyInquiryEmail({
 
         <Hr style={styles.hr} />
         <Text style={styles.footer}>
-          &copy; {new Date().getFullYear()} YourCompany. Internal Notification.
+          &copy; {new Date().getFullYear()} Techspire Hub. Internal
+          Notification.
         </Text>
       </Container>
     </Html>
@@ -212,7 +213,7 @@ export function UserConfirmationEmail({
 
         <Hr style={styles.hr} />
         <Text style={styles.footer}>
-          &copy; {new Date().getFullYear()} YourCompany. All rights reserved.
+          &copy; {new Date().getFullYear()} Techspire Hub. All rights reserved.
         </Text>
       </Container>
     </Html>

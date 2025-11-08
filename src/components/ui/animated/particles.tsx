@@ -7,12 +7,15 @@ type Particle = {
   originX: number;
   originY: number;
   color: string;
+  vx: number;
+  vy: number;
 };
 
 const PARTICLE_DIAMETER = 3;
-const REPEL_RADIUS = 60;
-const REPEL_SPEED = 10;
-const RETURN_SPEED = 0.02;
+const REPEL_RADIUS = 70; // slightly larger detection area
+const REPEL_FORCE = 5.5; // stronger push away
+const RETURN_SPEED = 0.002; // slower return for soft, floaty bounce
+const FRICTION = 0.88; // keeps motion smooth and bouncy
 const DELAY = 60000;
 const WIDTH = 400;
 const HEIGHT = 400;
@@ -68,7 +71,21 @@ export function ParticleImage() {
             originX: col * PARTICLE_DIAMETER + PARTICLE_DIAMETER / 2,
             originY: row * PARTICLE_DIAMETER + PARTICLE_DIAMETER / 2,
             color: `rgba(${red}, ${green}, ${blue}, ${alpha / 255})`,
+            vx: 0,
+            vy: 0,
           });
+
+          if (alpha > 100) {
+            particles.push({
+              x: Math.floor(Math.random() * numCols * PARTICLE_DIAMETER),
+              y: Math.floor(Math.random() * numRows * PARTICLE_DIAMETER),
+              originX: col * PARTICLE_DIAMETER + PARTICLE_DIAMETER / 2,
+              originY: row * PARTICLE_DIAMETER + PARTICLE_DIAMETER / 2,
+              color: `rgba(${red}, ${green}, ${blue}, ${alpha / 255})`,
+              vx: 0,
+              vy: 0,
+            });
+          }
         }
       }
       particlesRef.current = particles;
@@ -89,22 +106,34 @@ export function ParticleImage() {
     const updateParticles = () => {
       const particles = particlesRef.current;
       const mouse = mouseRef.current;
-      particles.forEach((particle) => {
-        const dx = mouse.x - particle.x;
-        const dy = mouse.y - particle.y;
+
+      particles.forEach((p) => {
+        const dx = mouse.x - p.x;
+        const dy = mouse.y - p.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
 
         if (dist < REPEL_RADIUS) {
+          // apply bounce-like impulse
           const angle = Math.atan2(dy, dx);
           const force = (REPEL_RADIUS - dist) / REPEL_RADIUS;
-          particle.x -= Math.cos(angle) * force * REPEL_SPEED;
-          particle.y -= Math.sin(angle) * force * REPEL_SPEED;
-        } else {
-          const ox = particle.originX - particle.x;
-          const oy = particle.originY - particle.y;
-          particle.x += ox * RETURN_SPEED;
-          particle.y += oy * RETURN_SPEED;
+          const impulse = force * REPEL_FORCE;
+          p.vx -= Math.cos(angle) * impulse;
+          p.vy -= Math.sin(angle) * impulse;
         }
+
+        // spring return toward origin
+        const ox = p.originX - p.x;
+        const oy = p.originY - p.y;
+        p.vx += ox * RETURN_SPEED;
+        p.vy += oy * RETURN_SPEED;
+
+        // apply friction
+        p.vx *= FRICTION;
+        p.vy *= FRICTION;
+
+        // update position
+        p.x += p.vx;
+        p.y += p.vy;
       });
     };
 
@@ -114,6 +143,8 @@ export function ParticleImage() {
       particles.forEach((p) => {
         p.x += (Math.random() - 0.5) * 100;
         p.y += (Math.random() - 0.5) * 100;
+        p.vx += (Math.random() - 0.5) * 4;
+        p.vy += (Math.random() - 0.5) * 4;
       });
     };
 

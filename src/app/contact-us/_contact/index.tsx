@@ -26,7 +26,7 @@ import { Instagram } from "@/components/socials/instagram";
 import { isValidPhoneNumber } from "react-phone-number-input";
 import { PhoneInput } from "@/components/ui/phone-input";
 import { toast } from "sonner";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const chatOptions = [
   {
@@ -68,6 +68,8 @@ type ContactSchema = z.infer<typeof ContactSchema>;
 const MotionLink = motion(Link);
 
 export function ContactUs() {
+  const [resetKey, setResetKey] = useState(0);
+
   const {
     control,
     register,
@@ -90,7 +92,13 @@ export function ContactUs() {
 
       if (result.success) {
         reset();
-        toast.success("Mail sent!");
+        setResetKey((prev) => prev + 1);
+        toast.success(
+          "Thanks for your enquiry! It’s been submitted successfully. Go ahead and book your preferred slot from the available dates.",
+          {
+            duration: 60000,
+          },
+        );
       } else {
         toast.error("Something went wrong, please try again.");
       }
@@ -191,6 +199,7 @@ export function ContactUs() {
               label="First Name"
               id="firstName"
               error={errors.firstName?.message}
+              resetKey={resetKey}
             >
               <Input
                 id="firstName"
@@ -202,6 +211,7 @@ export function ContactUs() {
               label="Last Name"
               id="lastName"
               error={errors.lastName?.message}
+              resetKey={resetKey}
             >
               <Input id="lastName" type="text" {...register("lastName")} />
             </LabelInputContainer>
@@ -211,6 +221,7 @@ export function ContactUs() {
               id="email"
               label="Email Address"
               error={errors.email?.message}
+              resetKey={resetKey}
             >
               <Input id="email" type="email" {...register("email")} />
             </LabelInputContainer>
@@ -222,6 +233,7 @@ export function ContactUs() {
                   label="Phone number"
                   id="phoneNumber"
                   error={errors.phone?.message}
+                  resetKey={resetKey}
                 >
                   <PhoneInput
                     name={name}
@@ -241,6 +253,7 @@ export function ContactUs() {
                 label="Service"
                 id="service"
                 error={errors.service?.message}
+                resetKey={resetKey}
               >
                 <Select value={value} onValueChange={onChange}>
                   <SelectTrigger
@@ -269,6 +282,7 @@ export function ContactUs() {
             label="Message"
             id="message"
             error={errors.message?.message}
+            resetKey={resetKey}
           >
             <Textarea
               id="message"
@@ -295,15 +309,22 @@ export const LabelInputContainer = ({
   children,
   error,
   className,
+  resetKey,
 }: {
   label: string;
   id: string;
   children: React.ReactNode;
   error?: string;
   className?: string;
+  resetKey?: number;
 }) => {
   const [focused, setFocused] = useState(false);
   const [filled, setFilled] = useState(false);
+
+  useEffect(() => {
+    setFilled(false);
+    setFocused(false);
+  }, [resetKey]);
 
   return (
     <div className={cn("relative w-full", className)}>
@@ -313,7 +334,10 @@ export const LabelInputContainer = ({
         animate={{
           y: focused || filled ? -20 : 0,
           scale: focused || filled ? 0.9 : 1,
-          color: focused ? "var(--secondary)" : "var(--opposite-foreground)",
+          color:
+            focused || filled
+              ? "var(--secondary)"
+              : "var(--opposite-foreground)",
           x: id === "phoneNumber" ? 55 : 0,
         }}
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
@@ -342,8 +366,11 @@ export const LabelInputContainer = ({
       <motion.span
         initial={false}
         animate={{
-          scaleX: focused ? 1 : 0,
-          backgroundColor: "var(--secondary)",
+          scaleX: focused || filled ? 1 : 0,
+          backgroundColor:
+            focused || filled
+              ? "var(--secondary)"
+              : "var(--opposite-foreground)",
         }}
         transition={{ duration: 0.25 }}
         className="absolute bottom-0 left-0 right-0 h-[2px] origin-left rounded-full"
