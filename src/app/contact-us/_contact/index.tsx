@@ -8,7 +8,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { Mail, MapPin, PhoneCall } from "lucide-react";
-import { z } from "zod";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { services } from "@/data/services";
@@ -23,10 +22,11 @@ import { contactDetails, faqs, socials } from "@/data";
 import Link from "next/link";
 import { page } from "@/components/ui/styles/page";
 import { Instagram } from "@/components/socials/instagram";
-import { isValidPhoneNumber } from "react-phone-number-input";
 import { PhoneInput } from "@/components/ui/phone-input";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
+import { ContactSchema, useContactStore } from "@/lib/store";
+import { useRouter } from "next/navigation";
 
 const chatOptions = [
   {
@@ -41,34 +41,12 @@ const chatOptions = [
   },
 ];
 
-export const ContactSchema = z
-  .object({
-    firstName: z.string().min(2, "Enter first name"),
-    lastName: z.string().optional(),
-    email: z.email("Enter a valid email").optional(),
-    phone: z
-      .string()
-      .refine((val) => !val || isValidPhoneNumber(val), {
-        message: "Enter a valid phone number",
-      })
-      .optional(),
-    company: z.string().optional(),
-    message: z.string().min(10, "Message must be at least 10 characters"),
-    service: z
-      .enum(services.map((service) => service.name) as [string, ...string[]])
-      .optional(),
-  })
-  .refine((data) => data.email || data.phone, {
-    message: "Either email or phone number is required",
-    path: ["contactInfo"],
-  });
-
-type ContactSchema = z.infer<typeof ContactSchema>;
-
 const MotionLink = motion(Link);
 
 export function ContactUs() {
   const [resetKey, setResetKey] = useState(0);
+  const setContactData = useContactStore((state) => state.setContactData);
+  const { push } = useRouter();
 
   const {
     control,
@@ -91,14 +69,16 @@ export function ContactUs() {
       const result = await res.json();
 
       if (result.success) {
+        setContactData(data);
         reset();
         setResetKey((prev) => prev + 1);
         toast.success(
           "Thanks for your enquiry! It’s been submitted successfully. Go ahead and book your preferred slot from the available dates.",
           {
-            duration: 60000,
+            duration: 30000,
           },
         );
+        push("/contact-us/schedule");
       } else {
         toast.error("Something went wrong, please try again.");
       }
@@ -194,7 +174,7 @@ export function ContactUs() {
             className={cn(page.heading, "text-balance")}
             phrases={["Enter your contact details."]}
           />
-          <div className="flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-2">
+          <div className="flex flex-col space-y-8 md:flex-row md:space-y-0 md:space-x-2">
             <LabelInputContainer
               label="First Name"
               id="firstName"
@@ -216,7 +196,7 @@ export function ContactUs() {
               <Input id="lastName" type="text" {...register("lastName")} />
             </LabelInputContainer>
           </div>
-          <div className="flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-2">
+          <div className="flex flex-col space-y-8 md:flex-row md:space-y-0 md:space-x-2">
             <LabelInputContainer
               id="email"
               label="Email Address"
@@ -248,19 +228,15 @@ export function ContactUs() {
           <Controller
             name="service"
             control={control}
-            render={({ field: { name, value, onChange } }) => (
+            render={({ field: { value, onChange } }) => (
               <LabelInputContainer
                 label="Service"
                 id="service"
                 error={errors.service?.message}
                 resetKey={resetKey}
               >
-                <Select value={value} onValueChange={onChange}>
-                  <SelectTrigger
-                    name={name}
-                    id="service"
-                    className="capitalize w-full"
-                  >
+                <Select key={resetKey} value={value} onValueChange={onChange}>
+                  <SelectTrigger id="service" className="capitalize w-full">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -359,22 +335,22 @@ export const LabelInputContainer = ({
             | null;
           setFilled(Boolean(target?.value));
         }}
+        className="relative"
       >
         {children}
+        <motion.span
+          initial={false}
+          animate={{
+            scaleX: focused || filled ? 1 : 0,
+            backgroundColor:
+              focused || filled
+                ? "var(--secondary)"
+                : "var(--opposite-foreground)",
+          }}
+          transition={{ duration: 0.25 }}
+          className="absolute bottom-0 left-0 right-0 h-[2px] origin-left rounded-full"
+        />
       </div>
-
-      <motion.span
-        initial={false}
-        animate={{
-          scaleX: focused || filled ? 1 : 0,
-          backgroundColor:
-            focused || filled
-              ? "var(--secondary)"
-              : "var(--opposite-foreground)",
-        }}
-        transition={{ duration: 0.25 }}
-        className="absolute bottom-0 left-0 right-0 h-[2px] origin-left rounded-full"
-      />
 
       {error && <p className="text-destructive text-sm mt-1">{error}</p>}
     </div>

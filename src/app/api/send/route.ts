@@ -6,14 +6,13 @@ import {
 
 export async function POST(req: Request) {
   try {
-    const from = process.env.FROM!;
     const { firstName, lastName, email, phone, service, message } =
       await req.json();
     const name = `${firstName} ${lastName}`;
 
     await Email.send({
-      from,
-      to: process.env.TO!,
+      from: "Techspire Hub <sam@techspiirehub.com>",
+      to: "sam@techspiirehub.com",
       subject: `New ${service || ""} Inquiry from ${name}`,
       react: CompanyInquiryEmail({
         name,
@@ -24,16 +23,18 @@ export async function POST(req: Request) {
       }),
     });
 
-    await Email.send({
-      from,
-      to: email,
-      subject: "We’ve received your inquiry",
-      react: UserConfirmationEmail({
-        name,
-        service,
-        message,
-      }),
-    });
+    if (email) {
+      await Email.send({
+        from: "Techspire Hub <sam@techspiirehub.com>",
+        to: email,
+        subject: "We’ve received your inquiry",
+        react: UserConfirmationEmail({
+          name,
+          service,
+          message,
+        }),
+      });
+    }
 
     return Response.json({ success: true });
   } catch (error) {

@@ -4,6 +4,7 @@ import {
   Heading,
   Hr,
   Html,
+  Img,
   Link,
   Row,
   Text,
@@ -11,7 +12,6 @@ import {
 import React from "react";
 import Fonts from "./_components/font";
 
-// 🧩 Shared Styles
 const styles = {
   container: {
     padding: "1.5rem",
@@ -22,6 +22,11 @@ const styles = {
     padding: "1.5rem",
     borderRadius: "0.5rem",
     boxShadow: "0 1px 2px rgba(0,0,0,0.05)",
+  },
+  logo: {
+    display: "flex",
+    alignItems: "center",
+    gap: "0.5rem",
   },
   heading: {
     fontSize: "1.25rem",
@@ -69,15 +74,11 @@ const styles = {
   },
 };
 
-// Helper: logo URL builder
-// function getLogoUrl(logo?: string) {
-//   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-//   return `${baseUrl}${logo || "/logo.png"}`;
-// }
+function getLogoUrl(logo?: string) {
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  return `${baseUrl}${logo || "/logo.png"}`;
+}
 
-//
-// 📩 Company Inquiry Email
-//
 export function CompanyInquiryEmail({
   name,
   email,
@@ -94,6 +95,7 @@ export function CompanyInquiryEmail({
   message: string;
 }): React.ReactNode {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  const logoUrl = getLogoUrl();
 
   return (
     <Html lang="en">
@@ -102,9 +104,14 @@ export function CompanyInquiryEmail({
       </Head>
       <Container style={styles.container}>
         <Row>
-          <Link href={baseUrl}>
+          <Link href={baseUrl} style={styles.logo}>
+            <Img
+              src={logoUrl}
+              width={28}
+              height={28}
+              alt="Techspire Hub Logo"
+            />
             <h2>Techspire</h2>
-            {/*<Img src={logoUrl} width={28} height={28} alt="Company Logo" />*/}
           </Link>
         </Row>
 
@@ -161,9 +168,6 @@ CompanyInquiryEmail.PreviewProps = {
   message: "We’re interested in redesigning our company website.",
 };
 
-//
-// 📬 User Confirmation Email
-//
 export function UserConfirmationEmail({
   name,
   service,
@@ -174,6 +178,7 @@ export function UserConfirmationEmail({
   message: string;
 }): React.ReactNode {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  const logoUrl = getLogoUrl();
 
   return (
     <Html lang="en">
@@ -182,9 +187,14 @@ export function UserConfirmationEmail({
       </Head>
       <Container style={styles.container}>
         <Row>
-          <Link href={baseUrl}>
+          <Link href={baseUrl} style={styles.logo}>
+            <Img
+              src={logoUrl}
+              width={28}
+              height={28}
+              alt="Techspire Hub Logo"
+            />
             <h2>Techspire</h2>
-            {/*<Img src={logoUrl} width={28} height={28} alt="Company Logo" />*/}
           </Link>
         </Row>
 
