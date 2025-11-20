@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import React, { useState } from "react";
 import { AnimatePresence, motion, Variants } from "framer-motion";
 import { NavLink } from "../nav-link";
