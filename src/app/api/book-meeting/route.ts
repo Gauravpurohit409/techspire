@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { getCalendarClient } from "@/lib/google";
+import { Email } from "@/server/email";
+import { InternalAlertEmail } from "@/server/email/alert";
 
 export async function POST(req: Request) {
   const { name, email, start, end, service, message, timeZone } =
@@ -39,6 +41,18 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ success: true, data });
   } catch (e) {
+    if (e instanceof Error && e.message.includes("invalid_grant")) {
+      // send internal alert
+      await Email.send({
+        from: "Techspire Hub <sam@techspiirehub.com>",
+        to: "sam@techspiirehub.com",
+        subject: `New ${service || ""} Inquiry from ${name}`,
+        react: InternalAlertEmail({
+          title: "System Warning",
+          message: "Refresh token expired — please re-authorize.",
+        }),
+      });
+    }
     console.error(e);
     return NextResponse.json({ success: false }, { status: 500 });
   }
