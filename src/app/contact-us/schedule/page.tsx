@@ -17,6 +17,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm, useWatch } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { parseTimeTo24Hour } from "@/lib/date";
+import { useRouter } from "next/navigation";
 
 const ScheduleSchema = z.object({
   date: z.date({ message: "Please select a date" }),
@@ -29,6 +30,7 @@ type ScheduleSchema = z.infer<typeof ScheduleSchema>;
 export default function ScheduleCall() {
   const [is24Hour, setIs24Hour] = useState(false);
   const { contactData, clearContactData } = useContactStore();
+  const { replace } = useRouter();
 
   const {
     control,
@@ -96,6 +98,7 @@ export default function ScheduleCall() {
         toast.success("Booking confirmed!", {
           description: `Your call is scheduled for ${data.date.toDateString()} at ${data.time} (${data.timeZone})`,
         });
+        replace("/");
       } else {
         toast.error("Something went wrong, please try again.");
       }
