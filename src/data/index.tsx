@@ -8,7 +8,7 @@ import { Webflow } from "@/components/client-logos/webflow";
 
 export const contactDetails = {
   mail: "sam@techspiirehub.com",
-  phone: "+91 7016459552",
+  phone: "+971509296085",
   location: "Hor Al Anz East - Deira",
 };
 
