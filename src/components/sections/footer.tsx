@@ -192,7 +192,7 @@ export function Footer() {
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-8">
               <p className="text-muted-foreground text-sm">
-                © 2025 Techspire hub. All rights reserved.
+                © 2025 TECHSPIRE HUB SOLUTIONS L.L.C.
               </p>
               <div className="flex space-x-6">
                 <MotionLink

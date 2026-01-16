@@ -19,9 +19,9 @@ export const metadata: Metadata = {
     "business automation solutions",
   ],
 
-  authors: [{ name: "Techspire Hub" }],
-  creator: "Techspire Hub",
-  publisher: "Techspire Hub",
+  authors: [{ name: "TECHSPIRE HUB SOLUTIONS L.L.C" }],
+  creator: "TECHSPIRE HUB SOLUTIONS L.L.C",
+  publisher: "TECHSPIRE HUB SOLUTIONS L.L.C",
 
   metadataBase: new URL("https://techspirehub.com"),
 

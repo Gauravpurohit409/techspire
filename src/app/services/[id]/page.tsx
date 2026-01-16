@@ -17,7 +17,7 @@ export async function generateMetadata({
     };
   }
 
-  const serviceTitle = `${service.subtitle} | Techspire Hub`;
+  const serviceTitle = `${service.subtitle} | TECHSPIRE HUB SOLUTIONS L.L.C`;
   const serviceDescription = `${service.description.join(" ")}. ${service.points.join(" ")}`;
 
   const keywords = [
@@ -25,6 +25,7 @@ export async function generateMetadata({
     `${service.highlight}`,
     `${service.subtitle}`,
     "Techspire Hub",
+    "TECHSPIRE HUB SOLUTIONS L.L.C",
     "digital solutions",
     "software development",
     "web development",
@@ -39,9 +40,9 @@ export async function generateMetadata({
     title: serviceTitle,
     description: serviceDescription,
     keywords,
-    authors: [{ name: "Techspire Hub" }],
-    creator: "Techspire Hub",
-    publisher: "Techspire Hub",
+    authors: [{ name: "TECHSPIRE HUB SOLUTIONS L.L.C" }],
+    creator: "TECHSPIRE HUB SOLUTIONS L.L.C",
+    publisher: "TECHSPIRE HUB SOLUTIONS L.L.C",
 
     openGraph: {
       title: serviceTitle,

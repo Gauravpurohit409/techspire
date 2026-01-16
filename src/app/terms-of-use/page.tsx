@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { page } from "@/components/ui/styles/page";
 
 export const metadata: Metadata = {
-  title: "Terms of Use | Techspire Hub",
+  title: "Terms of Use | TECHSPIRE HUB SOLUTIONS L.L.C",
   description:
     "Review Techspire Hub’s Terms of Use outlining the legal agreements, conditions, and responsibilities for using our website and digital services.",
 
@@ -19,9 +19,9 @@ export const metadata: Metadata = {
     "legal policies",
   ],
 
-  authors: [{ name: "Techspire Hub" }],
-  creator: "Techspire Hub",
-  publisher: "Techspire Hub",
+  authors: [{ name: "TECHSPIRE HUB SOLUTIONS L.L.C" }],
+  creator: "TECHSPIRE HUB SOLUTIONS L.L.C",
+  publisher: "TECHSPIRE HUB SOLUTIONS L.L.C",
 
   metadataBase: new URL("https://www.techspirehub.com"),
 

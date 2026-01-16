@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { page } from "@/components/ui/styles/page";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Techspire Hub",
+  title: "Privacy Policy | TECHSPIRE HUB SOLUTIONS L.L.C",
   description:
     "Read Techspire Hub’s Privacy Policy to understand how we collect, use, and protect your personal information when you visit or interact with our digital platforms.",
 
@@ -19,9 +19,9 @@ export const metadata: Metadata = {
     "GDPR compliance",
   ],
 
-  authors: [{ name: "Techspire Hub" }],
-  creator: "Techspire Hub",
-  publisher: "Techspire Hub",
+  authors: [{ name: "TECHSPIRE HUB SOLUTIONS L.L.C" }],
+  creator: "TECHSPIRE HUB SOLUTIONS L.L.C",
+  publisher: "TECHSPIRE HUB SOLUTIONS L.L.C",
 
   metadataBase: new URL("https://www.techspirehub.com"),
 
@@ -48,7 +48,7 @@ export default function PrivacyPolicy() {
 
       <div className="space-y-6 text-lg leading-relaxed text-muted-foreground">
         <p className={page.content}>
-          Techspire Hub Solution L.L.C (“we”, “our”, or “us”) values your
+          TECHSPIRE HUB SOLUTIONS L.L.C (“we”, “our”, or “us”) values your
           privacy. This Privacy Policy explains how we collect, use, and
           safeguard your information when you visit our website or use our
           software and digital services.
